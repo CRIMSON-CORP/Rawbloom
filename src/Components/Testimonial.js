@@ -4,7 +4,6 @@ import Tes2 from "../img/testimonials/testimonials-2.jpg";
 import Tes3 from "../img/testimonials/testimonials-3.jpg";
 import Tes4 from "../img/testimonials/testimonials-4.jpg";
 import Tes5 from "../img/testimonials/testimonials-5.jpg";
-import "jquery";
 import SwiperCore, { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";

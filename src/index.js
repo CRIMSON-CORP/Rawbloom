@@ -5,8 +5,17 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css/animate.compat.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <>
+        <ReactNotification className="notif" />
+        <App />
+    </>,
+    document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

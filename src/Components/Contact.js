@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { GoLocation, BsClock, BiEnvelope, BiPhone, BsExclamationCircle } from "react-icons/all";
+import { ImLocation } from "react-icons/im";
+import { BsClock } from "react-icons/bs";
+import { BiEnvelope, BiPhone } from "react-icons/bi";
+import { BsExclamationCircle } from "react-icons/bs";
 
 function Contact() {
     const [errs, setErrs] = useState({
@@ -61,7 +64,7 @@ function Contact() {
                         <div className="info">
                             <div className="address">
                                 <i>
-                                    <GoLocation />
+                                    <ImLocation />
                                 </i>
                                 <h4>Location:</h4>
                                 <p>A108 Adam Street, New York, NY 535022</p>

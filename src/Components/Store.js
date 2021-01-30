@@ -1,33 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from "react-transition-group";
-import { FiPlus, FiMinus } from "react-icons/fi";
-import { BiRightArrowAlt } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { CSSTransition } from "react-transition-group";
 import { store } from "react-notifications-component";
-function Shop({ props: AddItemToCart, products: Products }) {
-    const [ProductState, setProductState] = useState([]);
 
-    useEffect(() => {
-        setProductState(Products);
-    }, []);
+function Store({ props: Products, Addtocart: AddItemToCart }) {
     return (
-        <section id="shop" className="menu section-bg">
+        <section id="shop" className="menu section-bg" style={{ marginTop: 71 }}>
             <div className="container" data-aos="fade-up">
                 <div className="section-title">
-                    <h2>Products</h2>
+                    <h2>Store</h2>
                     <div className="shopList">
-                        <p>Check Our latest Products</p>
-                        <button className="rest">
-                            <p>Veiw all Products</p>
-                            <span>
-                                <BiRightArrowAlt size="1.25rem" />
-                            </span>
-                        </button>
+                        <p>Checkout all our Products</p>
                     </div>
                 </div>
-
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
-                    <ProductsList products={ProductState} AddToCart={AddItemToCart} />
+                    <ProductsList products={Products} AddToCart={AddItemToCart} />
                 </div>
             </div>
         </section>
@@ -182,4 +170,4 @@ function ProductsList({ products: ProductState, AddToCart: AddItemToCart }) {
     return ProductsJSX;
 }
 
-export default Shop;
+export default Store;
