@@ -14,7 +14,6 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import { Notification } from "./utils/utils";
 import { v4 } from "uuid";
 import PlaceOrder from "./Components/PlaceOrder";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import firebase from "./utils/firebase";
 function App() {
     const [Loading, setLoading] = useState(true);
@@ -23,6 +22,7 @@ function App() {
     const [products, setProducts] = useState([]);
     const [newest, setNewest] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [Page, setPage] = useState("main");
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -186,9 +186,9 @@ function App() {
         <div id="preloader"></div>
     ) : (
         <div className="App">
-            <Router>
-                <div>
-                    <Route path="/store">
+            <div>
+                {Page === "store" && (
+                    <>
                         <Header
                             props={{
                                 cart,
@@ -196,11 +196,14 @@ function App() {
                                 setPlaceOrderModal,
                                 LinkObj: [],
                                 totalPrice,
+                                setPage,
                             }}
                         />
                         <Store props={products} Addtocart={AddItemToCart} />
-                    </Route>
-                    <Route path="/" exact>
+                    </>
+                )}
+                {Page === "main" && (
+                    <div>
                         <Header
                             props={{
                                 cart,
@@ -211,33 +214,33 @@ function App() {
                             }}
                         />
                         <Hero />
-                        <Shop props={AddItemToCart} products={newest} />
+                        <Shop props={AddItemToCart} products={newest} setPage={setPage} />
                         <About />
                         <WhyUs />
                         <Testimonial />
                         <Contact />
                         <Footer />
-                    </Route>
-                    <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
-                </div>
-                <a
-                    href="#"
-                    className="back-to-top"
-                    onClick={() => {
-                        $("html, body").animate(
-                            {
-                                scrollTop: 0,
-                            },
-                            1500,
-                            "easeInOutExpo"
-                        );
-                    }}
-                >
-                    <i>
-                        <BiUpArrowAlt />
-                    </i>
-                </a>
-            </Router>
+                    </div>
+                )}
+                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
+            </div>
+            <a
+                href="#"
+                className="back-to-top"
+                onClick={() => {
+                    $("html, body").animate(
+                        {
+                            scrollTop: 0,
+                        },
+                        1500,
+                        "easeInOutExpo"
+                    );
+                }}
+            >
+                <i>
+                    <BiUpArrowAlt />
+                </i>
+            </a>
         </div>
     );
 }

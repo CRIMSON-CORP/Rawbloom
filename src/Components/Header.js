@@ -8,7 +8,9 @@ import { CSSTransition } from "react-transition-group";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 
-function Header({ props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice } }) {
+function Header({
+    props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice, setPage },
+}) {
     const [dropCart, setDropCart] = useState(false);
     const [mobileNav, setMobileNav] = useState(false);
     function scroll(e) {
@@ -44,7 +46,14 @@ function Header({ props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, to
         );
     });
 
-    const FinalLink = LinkObj.length == 0 ? <Link to="/">Home</Link> : LinkObjJSX;
+    const FinalLink =
+        LinkObj.length == 0 ? (
+            <div className="cursor" onClick={() => setPage("main")}>
+                Home
+            </div>
+        ) : (
+            LinkObjJSX
+        );
     return (
         <header id="header" className="fixed-top">
             <div className="container d-flex align-items-center head">
