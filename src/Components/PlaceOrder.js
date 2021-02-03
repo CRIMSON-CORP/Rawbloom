@@ -106,7 +106,7 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
     });
 
     return (
-        <CSSTransition in={true} classNames="show1" timeout={250} unmountOnExit>
+        <CSSTransition in={PlaceOrderModal} classNames="show1" timeout={250} unmountOnExit>
             <div className="PlaceOrderModal ProductModal">
                 <div className="modalBox container scrollBar" ref={modalRef}>
                     <div className="row">
