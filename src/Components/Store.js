@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CgClose } from "react-icons/cg";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { CSSTransition } from "react-transition-group";
-import { store } from "react-notifications-component";
+import { Notification } from "../utils/utils";
 function Store({ props: products, Addtocart: AddItemToCart }) {
     return (
         <section id="shop" className="menu section-bg store" style={{ marginTop: 71 }}>
@@ -86,24 +86,14 @@ function EachProductModal({
                                 };
                                 AddItemToCart(item);
                                 setModal(false);
-                                store.addNotification({
-                                    title: "Item Added!",
-                                    message: "Your Item has been successfuly added to Your Cart!",
-                                    type: "success",
-                                    container: "top-left",
-                                    animationIn: ["animated", "jackInTheBox"],
-                                    animationOut: ["animated", "bounceOut"],
-                                    dismiss: {
-                                        duration: 3000,
-                                        onScreen: true,
-                                        showIcon: true,
-                                        touch: true,
-                                        click: true,
-                                    },
-                                });
+                                Notification(
+                                    "success",
+                                    "Item Added!",
+                                    "Your Item has been successfuly added to Your Cart!"
+                                );
                             }}
                         >
-                            <FiPlus size="1.5em" color="white" />
+                            <FiPlus size="2em" color="white" />
                             <p className="m-0 ml-2">Add Item to Cart</p>
                         </button>
                     </div>

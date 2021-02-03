@@ -1661,10 +1661,10 @@ button {
     margin-bottom: 20px;
 }
 
-.add-to-cart {
+.modalBox .add-to-cart {
     font-size: 10px;
 }
-.add-to-cart p {
+.modalBox .add-to-cart p {
     font-size: 1.5em;
 }
 
