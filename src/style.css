@@ -2339,7 +2339,6 @@ textarea {
     background: #454035;
     pointer-events: none;
 }
-
 @media only screen and (max-width: 992px) {
     .PlaceOrderModal .cta {
         grid-template-columns: 40px auto;
