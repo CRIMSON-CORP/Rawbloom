@@ -11,14 +11,18 @@ import Store from "./Components/Store";
 import "jquery.easing";
 import $ from "jquery";
 import { BiUpArrowAlt } from "react-icons/bi";
-import { store } from "react-notifications-component";
+import { Notification } from "./utils/utils";
 import { v4 } from "uuid";
-import Products from "./Components/Products";
 import PlaceOrder from "./Components/PlaceOrder";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import firebase from "./utils/firebase";
 function App() {
     const [Loading, setLoading] = useState(true);
     const [cart, AddToCart] = useState([]);
     const [PlaceOrderModal, setPlaceOrderModal] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [newest, setNewest] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -62,49 +66,53 @@ function App() {
         });
     }, 100);
 
-    function AddItemToCart({ id, count, name, ItemPrice, imgSrc, quantity }) {
+    useEffect(() => {
+        var price = 0;
+        for (let index = 0; index < cart.length; index++) {
+            price = price + cart[index].ItemPrice;
+        }
+        setTotalPrice(price);
+    }, [cart]);
+
+    function AddItemToCart({ id, count, name, ItemPrice, imgSrc, quantity, price }) {
         const item = {
-            id: v4(),
+            IdInCart: v4(),
+            id,
             count,
             name,
             ItemPrice,
             imgSrc,
             quantity,
+            price,
         };
+        item.ItemPrice = item.count * item.price;
         AddToCart((prev) => [...prev, item]);
         return true;
     }
 
-    function EditItemInCart({ id, count = null, quantity = null }, action) {
+    function EditItemInCart({ IdInCart, count = null, quantity = null }, action) {
         switch (action) {
             case "del":
                 AddToCart(
                     cart.filter((item) => {
-                        return item.id !== id;
+                        return item.IdInCart !== IdInCart;
                     })
                 );
-                store.addNotification({
-                    title: "Item Removed from Cart!",
-                    message: "Your Item has been rewmoved from Your Cart!",
-                    type: "danger",
-                    container: "top-left",
-                    animationIn: ["animated", "jackInTheBox"],
-                    animationOut: ["animated", "bounceOut"],
-                    dismiss: {
-                        duration: 3000,
-                        onScreen: true,
-                        showIcon: true,
-                        touch: true,
-                        click: true,
-                    },
-                });
+                Notification(
+                    "danger",
+                    "Item Removed from Cart!",
+                    "Your Item has been rewmoved from Your Cart!"
+                );
                 break;
             case "dec":
                 AddToCart(
                     cart.map((cartItem) => {
-                        if (cartItem.id === id) {
+                        if (cartItem.IdInCart === IdInCart) {
                             if (cartItem.count <= 1) return cartItem;
-                            else cartItem.count--;
+                            else {
+                                cartItem.count--;
+                                cartItem.ItemPrice = cartItem.count * cartItem.price;
+                            }
                         }
                         return cartItem;
                     })
@@ -113,9 +121,12 @@ function App() {
             case "inc":
                 AddToCart(
                     cart.map((cartItem) => {
-                        if (cartItem.id === id) {
+                        if (cartItem.IdInCart === IdInCart) {
                             if (cartItem.count >= quantity) return cartItem;
-                            else cartItem.count++;
+                            else {
+                                cartItem.count++;
+                                cartItem.ItemPrice = cartItem.count * cartItem.price;
+                            }
                         }
                         return cartItem;
                     })
@@ -126,47 +137,107 @@ function App() {
         }
     }
 
-    var newest = [];
-    for (let index = 0; index <= 3; index++) {
-        newest[index] = Products[index];
-    }
+    useEffect(() => {
+        function Data() {
+            try {
+                const db = firebase.database();
+                const ref = db.ref("store");
+                ref.on("value", async (snapshot) => {
+                    const productsList = [];
+                    for (const key in snapshot.val()) {
+                        productsList.push(snapshot.val()[key]);
+                    }
+                    setProducts(productsList);
+                    const newestList = [];
+                    for (let index = 0; index <= 3; index++) {
+                        newestList[index] = productsList[index];
+                    }
+                    setNewest(newestList);
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        Data();
+    }, []);
+
+    const HeaderLinks = [
+        {
+            link: "#header",
+            name: "Home",
+            active: true,
+        },
+        {
+            link: "#shop",
+            name: "Shop",
+        },
+        {
+            link: "#about",
+            name: "About",
+        },
+
+        {
+            link: "#contact",
+            name: "Contact",
+        },
+    ];
+
     return Loading ? (
         <div id="preloader"></div>
     ) : (
         <div className="App">
-            <Header props={{ cart, EditItemInCart, setPlaceOrderModal }} />
-            <div>
+            <Router>
                 <div>
-                    <Hero />
-                    <Shop props={AddItemToCart} products={newest} />
-                    <About />
-                    <WhyUs />
-                    <Testimonial />
-                    <Contact />
-                    <Footer />
+                    <Route path="/store">
+                        <Header
+                            props={{
+                                cart,
+                                EditItemInCart,
+                                setPlaceOrderModal,
+                                LinkObj: [],
+                                totalPrice,
+                            }}
+                        />
+                        <Store props={products} Addtocart={AddItemToCart} />
+                    </Route>
+                    <Route path="/" exact>
+                        <Header
+                            props={{
+                                cart,
+                                EditItemInCart,
+                                setPlaceOrderModal,
+                                LinkObj: HeaderLinks,
+                                totalPrice,
+                            }}
+                        />
+                        <Hero />
+                        <Shop props={AddItemToCart} products={newest} />
+                        <About />
+                        <WhyUs />
+                        <Testimonial />
+                        <Contact />
+                        <Footer />
+                    </Route>
+                    <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
                 </div>
-                {/* <div>
-                    <Store props={Products} Addtocart={AddItemToCart} />
-                </div> */}
-                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal }} />
-            </div>
-            <a
-                href="#"
-                className="back-to-top"
-                onClick={() => {
-                    $("html, body").animate(
-                        {
-                            scrollTop: 0,
-                        },
-                        1500,
-                        "easeInOutExpo"
-                    );
-                }}
-            >
-                <i>
-                    <BiUpArrowAlt />
-                </i>
-            </a>
+                <a
+                    href="#"
+                    className="back-to-top"
+                    onClick={() => {
+                        $("html, body").animate(
+                            {
+                                scrollTop: 0,
+                            },
+                            1500,
+                            "easeInOutExpo"
+                        );
+                    }}
+                >
+                    <i>
+                        <BiUpArrowAlt />
+                    </i>
+                </a>
+            </Router>
         </div>
     );
 }

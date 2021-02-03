@@ -3,13 +3,9 @@ import { CSSTransition } from "react-transition-group";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
-import { store } from "react-notifications-component";
-function Shop({ props: AddItemToCart, products: Products }) {
-    const [ProductState, setProductState] = useState([]);
-
-    useEffect(() => {
-        setProductState(Products);
-    }, []);
+import { Notification } from "../utils/utils";
+import { Link } from "react-router-dom";
+function Shop({ props: AddItemToCart, products: newest }) {
     return (
         <section id="shop" className="menu section-bg">
             <div className="container" data-aos="fade-up">
@@ -17,17 +13,17 @@ function Shop({ props: AddItemToCart, products: Products }) {
                     <h2>Products</h2>
                     <div className="shopList">
                         <p>Check Our latest Products</p>
-                        <button className="rest">
+                        <Link className="rest" to="/store">
                             <p>Veiw all Products</p>
                             <span>
                                 <BiRightArrowAlt size="1.25rem" />
                             </span>
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
-                    <ProductsList products={ProductState} AddToCart={AddItemToCart} />
+                    <ProductsList products={newest} AddToCart={AddItemToCart} />
                 </div>
             </div>
         </section>
@@ -43,8 +39,15 @@ function EachProductModal({
         setItemPrice(count * price);
     }, [count]);
     return (
-        <div className="ProductModal">
-            <div className="modalBox container">
+        <div
+            className="ProductModal"
+            onClick={(e) => {
+                if (e.target.classList.contains("ProductModal")) {
+                    setModal(false);
+                }
+            }}
+        >
+            <div className="modalBox container scrollBar">
                 <div className="row">
                     <button onClick={() => setModal(false)} className="closeModal">
                         <CgClose size="1.5rem" />
@@ -69,7 +72,7 @@ function EachProductModal({
                                     >
                                         <FiMinus />
                                     </button>
-                                    {count}
+                                    <div className="countText">{count}</div>
                                     <button
                                         className="inc count"
                                         onClick={() => {
@@ -93,24 +96,15 @@ function EachProductModal({
                                     ItemPrice,
                                     imgSrc,
                                     quantity,
+                                    price,
                                 };
                                 AddItemToCart(item);
                                 setModal(false);
-                                store.addNotification({
-                                    title: "Item Added!",
-                                    message: "Your Item has been successfuly added to Your Cart!",
-                                    type: "success",
-                                    container: "top-left",
-                                    animationIn: ["animated", "jackInTheBox"],
-                                    animationOut: ["animated", "bounceOut"],
-                                    dismiss: {
-                                        duration: 3000,
-                                        onScreen: true,
-                                        showIcon: true,
-                                        touch: true,
-                                        click: true,
-                                    },
-                                });
+                                Notification(
+                                    "success",
+                                    "Item Added!",
+                                    "Your Item has been successfuly added to Your Cart!"
+                                );
                             }}
                         >
                             <FiPlus size="1.5em" color="white" />
@@ -131,13 +125,19 @@ function EachProduct({
             <img src={imgSrc} className="menu-img" alt="" />
             <div className="menu-content">
                 <p className="product-name">{name}</p>
-                <div className="menu-ingredients">{description}</div>
+                <div className="menu-ingredients">
+                    {description == null || description === "" ? "No Description" : description}
+                </div>
             </div>
             <div className="cta">
                 <button className="add-to-cart shadow" onClick={() => setModal(true)}>
                     <FiPlus size="2em" color="white" />
                 </button>
-                <span className="price">${price}</span>
+                {quantity == null || quantity == 0 ? (
+                    <span className={"out-of-stock"}>Out of Stock</span>
+                ) : (
+                    <span className="price">${price}</span>
+                )}
             </div>
             <CSSTransition in={modal} classNames="show" timeout={400} unmountOnExit>
                 <EachProductModal
@@ -158,8 +158,8 @@ function EachProduct({
     );
 }
 
-function ProductsList({ products: ProductState, AddToCart: AddItemToCart }) {
-    const ProductsJSX = ProductState.map(
+function ProductsList({ products: newest, AddToCart: AddItemToCart }) {
+    const ProductsJSX = newest.map(
         ({ quantity, id, description, name, imgSrc, category, price }) => {
             return (
                 <EachProduct

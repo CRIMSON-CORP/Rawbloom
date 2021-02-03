@@ -3,10 +3,9 @@ import { CgClose } from "react-icons/cg";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { CSSTransition } from "react-transition-group";
 import { store } from "react-notifications-component";
-
-function Store({ props: Products, Addtocart: AddItemToCart }) {
+function Store({ props: products, Addtocart: AddItemToCart }) {
     return (
-        <section id="shop" className="menu section-bg" style={{ marginTop: 71 }}>
+        <section id="shop" className="menu section-bg store" style={{ marginTop: 71 }}>
             <div className="container" data-aos="fade-up">
                 <div className="section-title">
                     <h2>Store</h2>
@@ -15,13 +14,16 @@ function Store({ props: Products, Addtocart: AddItemToCart }) {
                     </div>
                 </div>
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
-                    <ProductsList products={Products} AddToCart={AddItemToCart} />
+                    {products.length == 0 ? (
+                        <h1 className="text-center">No Products for Now</h1>
+                    ) : (
+                        <ProductsList products={products} AddToCart={AddItemToCart} />
+                    )}
                 </div>
             </div>
         </section>
     );
 }
-
 function EachProductModal({
     props: { quantity, id, description, name, imgSrc, category, price, setModal, AddItemToCart },
 }) {
@@ -32,7 +34,7 @@ function EachProductModal({
     }, [count]);
     return (
         <div className="ProductModal">
-            <div className="modalBox container">
+            <div className="modalBox container scrollBar">
                 <div className="row">
                     <button onClick={() => setModal(false)} className="closeModal">
                         <CgClose size="1.5rem" />
@@ -145,9 +147,11 @@ function EachProduct({
         </div>
     );
 }
-
-function ProductsList({ products: ProductState, AddToCart: AddItemToCart }) {
-    const ProductsJSX = ProductState.map(
+function ProductsList({ products: products, AddToCart: AddItemToCart }) {
+    {
+        console.log(products);
+    }
+    const ProductsJSX = products.map(
         ({ quantity, id, description, name, imgSrc, category, price }) => {
             return (
                 <EachProduct
@@ -166,8 +170,6 @@ function ProductsList({ products: ProductState, AddToCart: AddItemToCart }) {
             );
         }
     );
-
     return ProductsJSX;
 }
-
 export default Store;

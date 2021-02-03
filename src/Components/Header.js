@@ -3,32 +3,30 @@ import { BiCart } from "react-icons/bi";
 import { FaTruck } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
-import { MdDelete } from "react-icons/md";
+import { MdClose, MdDehaze, MdDelete } from "react-icons/md";
 import { CSSTransition } from "react-transition-group";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
-function Header({ props: { cart, EditItemInCart, setPlaceOrderModal } }) {
+function Header({ props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice } }) {
     const [dropCart, setDropCart] = useState(false);
-    const LinkObj = [
-        {
-            link: "#header",
-            name: "Home",
-            active: true,
-        },
-        {
-            link: "#shop",
-            name: "Shop",
-        },
-        {
-            link: "#about",
-            name: "About",
-        },
-
-        {
-            link: "#contact",
-            name: "Contact",
-        },
-    ];
+    const [mobileNav, setMobileNav] = useState(false);
+    function scroll(e) {
+        e.preventDefault();
+        var scrolltoOffset = $("#header").outerHeight() - 1;
+        var target = $(`${e.target.attributes.href.value}`);
+        var scrollto = target.offset().top - scrolltoOffset;
+        if (e.target.attributes.href.value === "#header") {
+            scrollto = 0;
+        }
+        $("html, body").animate(
+            {
+                scrollTop: scrollto,
+            },
+            1500,
+            "easeInOutExpo"
+        );
+    }
 
     const LinkObjJSX = LinkObj.map(({ link, name, active }, index) => {
         return (
@@ -36,22 +34,8 @@ function Header({ props: { cart, EditItemInCart, setPlaceOrderModal } }) {
                 <a
                     href={link}
                     onClick={(e) => {
-                        e.preventDefault();
-                        var scrolltoOffset = $("#header").outerHeight() - 1;
-                        var target = $(`${e.target.attributes.href.value}`);
-                        var scrollto = target.offset().top - scrolltoOffset;
-
-                        if (e.target.attributes.href.value === "#header") {
-                            scrollto = 0;
-                        }
-
-                        $("html, body").animate(
-                            {
-                                scrollTop: scrollto,
-                            },
-                            1500,
-                            "easeInOutExpo"
-                        );
+                        scroll(e);
+                        setMobileNav(false);
                     }}
                 >
                     {name}
@@ -59,36 +43,25 @@ function Header({ props: { cart, EditItemInCart, setPlaceOrderModal } }) {
             </li>
         );
     });
+
+    const FinalLink = LinkObj.length == 0 ? <Link to="/">Home</Link> : LinkObjJSX;
     return (
         <header id="header" className="fixed-top">
             <div className="container d-flex align-items-center head">
                 <h1 className="logo mr-auto">
-                    <a
-                        href="#header"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            var scrolltoOffset = $("#header").outerHeight() - 1;
-                            var target = $(`${e.target.attributes.href.value}`);
-                            var scrollto = target.offset().top - scrolltoOffset;
-
-                            if (e.target.attributes.href.value === "#header") {
-                                scrollto = 0;
-                            }
-
-                            $("html, body").animate(
-                                {
-                                    scrollTop: scrollto,
-                                },
-                                1500,
-                                "easeInOutExpo"
-                            );
-                        }}
-                    >
+                    <a href="#header" onClick={scroll}>
                         Rawbloom
                     </a>
                 </h1>
-                <nav className="nav-menu d-none d-lg-block">
-                    <ul>{LinkObjJSX}</ul>
+                <nav className={`nav-menu ${mobileNav ? "open" : ""}`}>
+                    <MdClose
+                        className="mobileNavBtn"
+                        size="3rem"
+                        onClick={() => {
+                            setMobileNav(false);
+                        }}
+                    />
+                    <ul>{FinalLink}</ul>
                 </nav>
                 <li
                     className="cart"
@@ -105,25 +78,38 @@ function Header({ props: { cart, EditItemInCart, setPlaceOrderModal } }) {
                     <div className="cartDropDown">
                         <Cart cart={cart} edit={EditItemInCart} />
                         {cart.length == 0 ? null : (
-                            <div
-                                className="order add-to-cart"
-                                onClick={() => {
-                                    setPlaceOrderModal(true);
-                                }}
-                            >
-                                <FaTruck />
-                                <p className="m-0 ml-2">Place Order</p>
+                            <div className="cartDropFooter">
+                                <div className="total">
+                                    <p>Total</p>
+                                    <p>{totalPrice}</p>
+                                </div>
+                                <div
+                                    className="order add-to-cart"
+                                    onClick={() => {
+                                        setPlaceOrderModal(true);
+                                    }}
+                                >
+                                    <FaTruck />
+                                    <p className="m-0 ml-2">Place Order</p>
+                                </div>
                             </div>
                         )}
                     </div>
                 </CSSTransition>
+                <MdDehaze
+                    className="mobileNavBtn openBtn"
+                    size="3rem"
+                    onClick={() => {
+                        setMobileNav(true);
+                    }}
+                />
             </div>
         </header>
     );
 }
 
 function EachItemInCart({
-    props: { id, imgSrc, name, count, quantity, ItemPrice },
+    props: { id, imgSrc, name, count, quantity, ItemPrice, IdInCart },
     edit: EditItemInCart,
 }) {
     return (
@@ -137,7 +123,7 @@ function EachItemInCart({
                         <button
                             className="dec count"
                             onClick={() => {
-                                EditItemInCart({ id }, "dec");
+                                EditItemInCart({ IdInCart }, "dec");
                             }}
                         >
                             <FiMinus />
@@ -146,7 +132,7 @@ function EachItemInCart({
                         <button
                             className="inc count"
                             onClick={() => {
-                                EditItemInCart({ id, quantity }, "inc");
+                                EditItemInCart({ IdInCart, quantity }, "inc");
                             }}
                         >
                             <FiPlus color="white" />
@@ -158,7 +144,7 @@ function EachItemInCart({
                 <MdDelete
                     size="1.2rem"
                     onClick={() => {
-                        EditItemInCart({ id }, "del");
+                        EditItemInCart({ IdInCart }, "del");
                     }}
                 />
                 <p>${ItemPrice}</p>
@@ -176,7 +162,7 @@ function Cart({ cart: cart, edit: EditItemInCart }) {
     const CartItemsJSX = cart.map((cart, index) => {
         return <EachItemInCart props={cart} edit={EditItemInCart} key={index} />;
     });
-    return cart.length == 0 ? NoItem : <div className="itemList">{CartItemsJSX}</div>;
+    return cart.length == 0 ? NoItem : <div className="itemList scrollBar">{CartItemsJSX}</div>;
 }
 
 export default Header;
