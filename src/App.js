@@ -14,7 +14,7 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import { Notification } from "./utils/utils";
 import { v4 } from "uuid";
 import PlaceOrder from "./Components/PlaceOrder";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import firebase from "./utils/firebase";
 function App() {
     const [Loading, setLoading] = useState(true);
@@ -90,7 +90,7 @@ function App() {
         return true;
     }
 
-    function EditItemInCart({ IdInCart, count = null, quantity = null }, action) {
+    function EditItemInCart({ IdInCart, quantity = null }, action) {
         switch (action) {
             case "del":
                 AddToCart(
@@ -133,32 +133,29 @@ function App() {
                 );
                 break;
             default:
-                break;
+                return;
         }
     }
 
     useEffect(() => {
-        function Data() {
-            try {
-                const db = firebase.database();
-                const ref = db.ref("store");
-                ref.on("value", async (snapshot) => {
-                    const productsList = [];
-                    for (const key in snapshot.val()) {
-                        productsList.push(snapshot.val()[key]);
-                    }
-                    setProducts(productsList);
-                    const newestList = [];
-                    for (let index = 0; index <= 3; index++) {
-                        newestList[index] = productsList[index];
-                    }
-                    setNewest(newestList);
-                });
-            } catch (error) {
-                console.log(error);
-            }
+        try {
+            const db = firebase.database();
+            const ref = db.ref("store");
+            ref.on("value", async (snapshot) => {
+                const productsList = [];
+                for (const key in snapshot.val()) {
+                    productsList.push(snapshot.val()[key]);
+                }
+                setProducts(productsList);
+                const newestList = [];
+                for (let index = 0; index <= 3; index++) {
+                    newestList[index] = productsList[index];
+                }
+                setNewest(newestList);
+            });
+        } catch (error) {
+            console.log(error);
         }
-        Data();
     }, []);
 
     const HeaderLinks = [

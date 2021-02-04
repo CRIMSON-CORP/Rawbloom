@@ -148,9 +148,6 @@ function EachProduct({
     );
 }
 function ProductsList({ products: products, AddToCart: AddItemToCart }) {
-    {
-        console.log(products);
-    }
     const ProductsJSX = products.map(
         ({ quantity, id, description, name, imgSrc, category, price }) => {
             return (
