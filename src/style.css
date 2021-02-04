@@ -1661,10 +1661,10 @@ button {
     margin-bottom: 20px;
 }
 
-.add-to-cart {
+.modalBox .add-to-cart {
     font-size: 10px;
 }
-.add-to-cart p {
+.modalBox .add-to-cart p {
     font-size: 1.5em;
 }
 
@@ -2339,9 +2339,12 @@ textarea {
     background: #454035;
     pointer-events: none;
 }
-
 @media only screen and (max-width: 992px) {
     .PlaceOrderModal .cta {
         grid-template-columns: 40px auto;
     }
+}
+
+.cursor {
+    cursor: pointer;
 }

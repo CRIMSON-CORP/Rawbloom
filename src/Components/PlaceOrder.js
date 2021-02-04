@@ -317,7 +317,7 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
                                                     <span>${totalPrice}</span>
                                                 </div>
                                                 <div className="d-flex justify-content-between data">
-                                                    <span>Shipping firebase</span>
+                                                    <span>Shipping fee</span>
                                                     <span>${100}</span>
                                                 </div>
                                                 <hr />

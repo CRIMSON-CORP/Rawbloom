@@ -15,6 +15,7 @@ import { Notification } from "./utils/utils";
 import { v4 } from "uuid";
 import PlaceOrder from "./Components/PlaceOrder";
 import { HashRouter as Router, Route } from "react-router-dom";
+
 import firebase from "./utils/firebase";
 function App() {
     const [Loading, setLoading] = useState(true);
@@ -183,8 +184,8 @@ function App() {
         <div id="preloader"></div>
     ) : (
         <div className="App">
-            <Router>
-                <div>
+            <div>
+                <Router>
                     <Route path="/store">
                         <Header
                             props={{
@@ -198,43 +199,45 @@ function App() {
                         <Store props={products} Addtocart={AddItemToCart} />
                     </Route>
                     <Route path="/" exact>
-                        <Header
-                            props={{
-                                cart,
-                                EditItemInCart,
-                                setPlaceOrderModal,
-                                LinkObj: HeaderLinks,
-                                totalPrice,
-                            }}
-                        />
-                        <Hero />
-                        <Shop props={AddItemToCart} products={newest} />
-                        <About />
-                        <WhyUs />
-                        <Testimonial />
-                        <Contact />
-                        <Footer />
+                        <div>
+                            <Header
+                                props={{
+                                    cart,
+                                    EditItemInCart,
+                                    setPlaceOrderModal,
+                                    LinkObj: HeaderLinks,
+                                    totalPrice,
+                                }}
+                            />
+                            <Hero />
+                            <Shop props={AddItemToCart} products={newest} />
+                            <About />
+                            <WhyUs />
+                            <Testimonial />
+                            <Contact />
+                            <Footer />
+                        </div>
                     </Route>
-                    <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
-                </div>
-                <a
-                    href="#"
-                    className="back-to-top"
-                    onClick={() => {
-                        $("html, body").animate(
-                            {
-                                scrollTop: 0,
-                            },
-                            1500,
-                            "easeInOutExpo"
-                        );
-                    }}
-                >
-                    <i>
-                        <BiUpArrowAlt />
-                    </i>
-                </a>
-            </Router>
+                </Router>
+                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
+            </div>
+            <a
+                href="#"
+                className="back-to-top"
+                onClick={() => {
+                    $("html, body").animate(
+                        {
+                            scrollTop: 0,
+                        },
+                        1500,
+                        "easeInOutExpo"
+                    );
+                }}
+            >
+                <i>
+                    <BiUpArrowAlt />
+                </i>
+            </a>
         </div>
     );
 }

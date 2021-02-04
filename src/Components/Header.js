@@ -8,7 +8,9 @@ import { CSSTransition } from "react-transition-group";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 
-function Header({ props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice } }) {
+function Header({
+    props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice, setPage },
+}) {
     const [dropCart, setDropCart] = useState(false);
     const [mobileNav, setMobileNav] = useState(false);
     function scroll(e) {
