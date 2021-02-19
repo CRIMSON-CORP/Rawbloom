@@ -11,7 +11,7 @@ function Shop({ props: AddItemToCart, products: newest }) {
                     <div className="shopList">
                         <p>Check Our latest Products</p>
                         <Link to="/store" className="rest cursor">
-                            Veiw all Products
+                            <p className="mr-2">Veiw all Products</p>
                             <span>
                                 <BiRightArrowAlt size="1.25rem" />
                             </span>

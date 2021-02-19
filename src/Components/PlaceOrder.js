@@ -9,7 +9,7 @@ import "swiper/swiper.min.css";
 import firebase from "../utils/firebase";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { Notification, States } from "../utils/utils";
-function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice } }) {
+function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice, cart } }) {
     const [errs, setErrs] = useState({
         name: false,
         email: false,
@@ -21,8 +21,10 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
         email: "",
         number: "",
         address: "",
-        state: "",
+        region: "",
         receiptUrl: "",
+        shipping_fee: "",
+        delivery_method: "",
     });
     const [Drop, setDrop] = useState(false);
     const [proceed, setProceed] = useState(false);
@@ -82,6 +84,12 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
 
     function Order(e) {
         e.preventDefault();
+        const payload = {
+            ...formData,
+            cart,
+        };
+        console.log(payload);
+        const Ref = firebase.database().ref("orders");
     }
 
     const Params = {
@@ -95,12 +103,17 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
                 className="list-group-item"
                 onClick={() => {
                     setFormData((prev) => {
-                        return { ...prev, state: state };
+                        return {
+                            ...prev,
+                            region: state.city,
+                            delivery_method: state.delivery_method,
+                            shipping_fee: state.shipping_fee,
+                        };
                     });
                     setDrop(false);
                 }}
             >
-                {state}
+                {`${state.city}(${state.delivery_method})`}
             </li>
         );
     });
@@ -239,10 +252,12 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
                                                                 setDrop(!Drop);
                                                             }}
                                                         >
-                                                            {formData.state == "" ? (
-                                                                <p className="m-0">Select State</p>
+                                                            {formData.region == "" ? (
+                                                                <p className="m-0">
+                                                                    Select your Region
+                                                                </p>
                                                             ) : (
-                                                                formData.state
+                                                                formData.region
                                                             )}
                                                             <span>
                                                                 <MdKeyboardArrowDown size="1.4rem" />
@@ -318,28 +333,45 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
                                                 </div>
                                                 <div className="d-flex justify-content-between data">
                                                     <span>Shipping fee</span>
-                                                    <span>${100}</span>
+                                                    <span>${formData.shipping_fee}</span>
                                                 </div>
                                                 <hr />
                                                 <div className="d-flex justify-content-between data">
                                                     <span>Total</span>
-                                                    <span>${totalPrice + 100}</span>
+                                                    <span>
+                                                        ${totalPrice + formData.shipping_fee}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div className="Order_address shadow p-2">
-                                                <div>
+                                                <div className="data">
                                                     <span className="tag">Your Address</span>
                                                     <p>{formData.address}</p>
                                                 </div>
                                                 <hr />
                                                 <div className="row">
                                                     <div className="col-md-6 data">
-                                                        <span className="tag">Phone Number</span>
+                                                        <span className="tag">
+                                                            Your Phone Number
+                                                        </span>
                                                         <p>{formData.number}</p>
                                                     </div>
+                                                    <hr />
                                                     <div className="col-md-6 data">
-                                                        <span className="tag">Your State</span>
-                                                        <p>{formData.state}</p>
+                                                        <span className="tag">Your Email</span>
+                                                        <p>{formData.email}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-md-6 data">
+                                                        <span className="tag">Your Region</span>
+                                                        <p>{formData.region}</p>
+                                                    </div>
+                                                    <hr />
+                                                    <div className="col-md-6 data">
+                                                        <span className="tag">Delivery Method</span>
+                                                        <p>{formData.delivery_method}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -388,7 +420,10 @@ function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice }
                                             <div className="back proceed" onClick={prev}>
                                                 <BiLeftArrowAlt size={"2rem"} />
                                             </div>
-                                            <div className={`proceed ${confirm ? "" : "disabled"}`}>
+                                            <div
+                                                className={`proceed ${confirm ? "" : "disabled"}`}
+                                                onClick={Order}
+                                            >
                                                 Confirm
                                             </div>
                                         </div>
@@ -418,6 +453,7 @@ function FileUpload({ props: { setFormData, formData } }) {
 
     async function upload(e) {
         e.preventDefault();
+        if (!image) return;
         setUploadUpdate("Attempting Upload...");
         if (
             image.type !== "image/png" &&

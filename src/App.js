@@ -17,6 +17,7 @@ import PlaceOrder from "./Components/PlaceOrder";
 import { HashRouter as Router, Route } from "react-router-dom";
 
 import firebase from "./utils/firebase";
+import Admin from "./Components/Admin";
 function App() {
     const [Loading, setLoading] = useState(true);
     const [cart, AddToCart] = useState([]);
@@ -24,6 +25,7 @@ function App() {
     const [products, setProducts] = useState([]);
     const [newest, setNewest] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -198,6 +200,18 @@ function App() {
                         />
                         <Store props={products} Addtocart={AddItemToCart} />
                     </Route>
+                    <Route path="/admin">
+                        <Header
+                            props={{
+                                cart,
+                                EditItemInCart,
+                                setPlaceOrderModal,
+                                LinkObj: [],
+                                totalPrice,
+                            }}
+                        />
+                        <Admin />
+                    </Route>
                     <Route path="/" exact>
                         <div>
                             <Header
@@ -219,10 +233,9 @@ function App() {
                         </div>
                     </Route>
                 </Router>
-                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice }} />
+                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice, cart }} />
             </div>
             <a
-                href="#"
                 className="back-to-top"
                 onClick={() => {
                     $("html, body").animate(

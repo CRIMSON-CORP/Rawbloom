@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import EachProduct from "./EachProduct";
 function Store({ props: products, Addtocart: AddItemToCart }) {
+    document.querySelector("html").scrollTop = 0;
     return (
         <section id="shop" className="menu section-bg store" style={{ marginTop: 71 }}>
             <div className="container" data-aos="fade-up">
