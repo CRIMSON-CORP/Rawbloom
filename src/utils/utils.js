@@ -1,4 +1,5 @@
 import { store } from "react-notifications-component";
+import $ from "jquery";
 export function Notification(type, title, message) {
     store.addNotification({
         title,
@@ -227,5 +228,43 @@ export const States = [
         city: "Lokoja(ABC Park)",
         delivery_method: "Park Delivery",
         shipping_fee: 3000,
+    },
+];
+
+export function scroll(e) {
+    e.preventDefault();
+    var scrolltoOffset = $("#header").outerHeight() - 1;
+    var target = $(`${e.target.attributes.href.value}`);
+    var scrollto = target.offset().top - scrolltoOffset;
+    if (e.target.attributes.href.value === "#header") {
+        scrollto = 0;
+    }
+    $("html, body").animate(
+        {
+            scrollTop: scrollto,
+        },
+        1500,
+        "easeInOutExpo"
+    );
+}
+
+export const HeaderLinks = [
+    {
+        link: "#header",
+        name: "Home",
+        active: true,
+    },
+    {
+        link: "#shop",
+        name: "Shop",
+    },
+    {
+        link: "#about",
+        name: "About",
+    },
+
+    {
+        link: "#contact",
+        name: "Contact",
     },
 ];

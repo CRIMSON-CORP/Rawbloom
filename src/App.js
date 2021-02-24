@@ -5,33 +5,30 @@ import Testimonial from "./Components/Testimonial";
 import Footer from "./Components/Footer";
 import About from "./Components/About";
 import Shop from "./Components/Shop";
-import WhyUs from "./Components/WhyUs";
+// import WhyUs from "./Components/WhyUs";
 import Contact from "./Components/Contact";
 import Store from "./Components/Store";
 import "jquery.easing";
 import $ from "jquery";
 import { BiUpArrowAlt } from "react-icons/bi";
-import { Notification } from "./utils/utils";
+import { Notification, HeaderLinks } from "./utils/utils";
 import { v4 } from "uuid";
 import PlaceOrder from "./Components/PlaceOrder";
 import { HashRouter as Router, Route } from "react-router-dom";
-
 import firebase from "./utils/firebase";
 import Admin from "./Components/Admin";
+import { CartContext } from "./utils/Contexts";
 function App() {
     const [Loading, setLoading] = useState(true);
     const [cart, AddToCart] = useState([]);
     const [PlaceOrderModal, setPlaceOrderModal] = useState(false);
     const [products, setProducts] = useState([]);
-    const [newest, setNewest] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 1000);
-    }, []);
-    useEffect(() => {
         $(window).scroll(function () {
             if ($(this).scrollTop() > 100) {
                 $("#header").addClass("header-scrolled");
@@ -150,37 +147,11 @@ function App() {
                     productsList.push(snapshot.val()[key]);
                 }
                 setProducts(productsList);
-                const newestList = [];
-                for (let index = 0; index <= 3; index++) {
-                    newestList[index] = productsList[index];
-                }
-                setNewest(newestList);
             });
         } catch (error) {
             console.log(error);
         }
     }, []);
-
-    const HeaderLinks = [
-        {
-            link: "#header",
-            name: "Home",
-            active: true,
-        },
-        {
-            link: "#shop",
-            name: "Shop",
-        },
-        {
-            link: "#about",
-            name: "About",
-        },
-
-        {
-            link: "#contact",
-            name: "Contact",
-        },
-    ];
 
     return Loading ? (
         <div id="preloader"></div>
@@ -188,52 +159,51 @@ function App() {
         <div className="App">
             <div>
                 <Router>
-                    <Route path="/store">
-                        <Header
-                            props={{
-                                cart,
-                                EditItemInCart,
-                                setPlaceOrderModal,
-                                LinkObj: [],
-                                totalPrice,
-                            }}
-                        />
-                        <Store props={products} Addtocart={AddItemToCart} />
-                    </Route>
-                    <Route path="/admin">
-                        <Header
-                            props={{
-                                cart,
-                                EditItemInCart,
-                                setPlaceOrderModal,
-                                LinkObj: [],
-                                totalPrice,
-                            }}
-                        />
-                        <Admin />
-                    </Route>
-                    <Route path="/" exact>
-                        <div>
+                    <CartContext.Provider
+                        value={{
+                            cart,
+                            AddItemToCart,
+                            EditItemInCart,
+                            totalPrice,
+                            setPlaceOrderModal,
+                            products,
+                        }}
+                    >
+                        <Route path="/store">
                             <Header
                                 props={{
-                                    cart,
-                                    EditItemInCart,
-                                    setPlaceOrderModal,
-                                    LinkObj: HeaderLinks,
-                                    totalPrice,
+                                    LinkObj: [],
                                 }}
                             />
-                            <Hero />
-                            <Shop props={AddItemToCart} products={newest} />
-                            <About />
-                            <WhyUs />
-                            <Testimonial />
-                            <Contact />
-                            <Footer />
-                        </div>
-                    </Route>
+                            <Store />
+                        </Route>
+                        <Route path="/admin">
+                            <Header
+                                props={{
+                                    LinkObj: [],
+                                }}
+                            />
+                            <Admin />
+                        </Route>
+                        <Route path="/" exact>
+                            <div>
+                                <Header
+                                    props={{
+                                        LinkObj: HeaderLinks,
+                                    }}
+                                />
+                                <Hero />
+                                <Shop />
+                                <About />
+                                {/* <WhyUs /> */}
+                                <Testimonial />
+                                <Contact />
+                                <Footer />
+                            </div>
+                        </Route>
+                        <PlaceOrder props={{ PlaceOrderModal }} />
+                    </CartContext.Provider>
                 </Router>
-                <PlaceOrder props={{ PlaceOrderModal, setPlaceOrderModal, totalPrice, cart }} />
             </div>
             <a
                 className="back-to-top"

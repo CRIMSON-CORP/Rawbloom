@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
 import EachProduct from "./EachProduct";
 import { Link } from "react-router-dom";
-function Shop({ props: AddItemToCart, products: newest }) {
+import { CartContext } from "../utils/Contexts";
+function Shop() {
     return (
         <section id="shop" className="menu section-bg">
             <div className="container" data-aos="fade-up">
@@ -20,13 +21,16 @@ function Shop({ props: AddItemToCart, products: newest }) {
                 </div>
 
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
-                    <ProductsList products={newest} AddToCart={AddItemToCart} />
+                    <ProductsList />
                 </div>
             </div>
         </section>
     );
 }
-function ProductsList({ products: newest, AddToCart: AddItemToCart }) {
+function ProductsList() {
+    const { products, AddItemToCart } = useContext(CartContext);
+    products.length = 4;
+    const newest = products;
     const ProductsJSX = newest.map(
         ({ quantity, id, description, name, imgSrc, category, price }) => {
             return (

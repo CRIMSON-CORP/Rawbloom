@@ -1,34 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiCart } from "react-icons/bi";
 import { FaTruck } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { MdClose, MdDehaze, MdDelete } from "react-icons/md";
 import { CSSTransition } from "react-transition-group";
-import $ from "jquery";
 import { Link } from "react-router-dom";
+import { CartContext } from "../utils/Contexts";
+import { scroll } from "../utils/utils";
 
-function Header({
-    props: { cart, EditItemInCart, setPlaceOrderModal, LinkObj, totalPrice, setPage },
-}) {
+function Header({ props: { LinkObj } }) {
     const [dropCart, setDropCart] = useState(false);
     const [mobileNav, setMobileNav] = useState(false);
-    function scroll(e) {
-        e.preventDefault();
-        var scrolltoOffset = $("#header").outerHeight() - 1;
-        var target = $(`${e.target.attributes.href.value}`);
-        var scrollto = target.offset().top - scrolltoOffset;
-        if (e.target.attributes.href.value === "#header") {
-            scrollto = 0;
-        }
-        $("html, body").animate(
-            {
-                scrollTop: scrollto,
-            },
-            1500,
-            "easeInOutExpo"
-        );
-    }
+    const { cart, EditItemInCart, totalPrice, setPlaceOrderModal } = useContext(CartContext);
 
     const LinkObjJSX = LinkObj.map(({ link, name, active }, index) => {
         return (

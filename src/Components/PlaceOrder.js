@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { CgClose } from "react-icons/cg";
 import { BsExclamationCircle } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -9,7 +9,9 @@ import "swiper/swiper.min.css";
 import firebase from "../utils/firebase";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { Notification, States } from "../utils/utils";
-function PlaceOrder({ props: { PlaceOrderModal, setPlaceOrderModal, totalPrice, cart } }) {
+import { CartContext } from "../utils/Contexts";
+function PlaceOrder({ props: { PlaceOrderModal } }) {
+    const { setPlaceOrderModal, totalPrice, cart } = useContext(CartContext);
     const [errs, setErrs] = useState({
         name: false,
         email: false,
@@ -482,7 +484,7 @@ function FileUpload({ props: { setFormData, formData } }) {
                 setUploading(false);
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                     setFormData((prev) => {
-                        return { ...prev, receiptUrl: download };
+                        return { ...prev, receiptUrl: downloadURL };
                     });
                 });
             }

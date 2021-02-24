@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../utils/Contexts";
 import EachProduct from "./EachProduct";
-function Store({ props: products, Addtocart: AddItemToCart }) {
+function Store() {
+    const { products } = useContext(CartContext);
     document.querySelector("html").scrollTop = 0;
     return (
         <section id="shop" className="menu section-bg store" style={{ marginTop: 71 }}>
@@ -15,7 +17,7 @@ function Store({ props: products, Addtocart: AddItemToCart }) {
                     {products.length == 0 ? (
                         <h1 className="text-center">No Products for Now</h1>
                     ) : (
-                        <ProductsList products={products} AddToCart={AddItemToCart} />
+                        <ProductsList />
                     )}
                 </div>
             </div>
@@ -23,7 +25,8 @@ function Store({ props: products, Addtocart: AddItemToCart }) {
     );
 }
 
-function ProductsList({ products: products, AddToCart: AddItemToCart }) {
+function ProductsList() {
+    const { products, AddItemToCart } = useContext(CartContext);
     const ProductsJSX = products.map(
         ({ quantity, id, description, name, imgSrc, category, price }) => {
             return (
