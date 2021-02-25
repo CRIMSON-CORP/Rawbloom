@@ -5,6 +5,8 @@ body {
     font-family: "Open Sans", sans-serif;
     background: #0c0b09;
     color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
@@ -2354,4 +2356,120 @@ textarea {
 
 .PlaceOrderModal .content p {
     margin-bottom: 10px;
+}
+
+/* Admin Login */
+.form_wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+form.admin_login {
+    padding: 20px;
+    max-width: 360px;
+    max-height: 400px;
+    background: #946b25;
+}
+
+form.admin_login .form-group .form-control {
+    background: #26231d;
+    border: none;
+    outline: none !important;
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+form.admin_login button[type="submit"] {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #37332a, #1a1814);
+    color: #cda45e;
+    float: right;
+}
+#admin {
+    padding-bottom: 0;
+}
+
+#admin .panel-wrapper nav {
+    width: 200px;
+    background: #0c0b09;
+    padding: 20px;
+}
+
+#admin .navlinks a {
+    display: block;
+    padding: 16px 20px;
+    border-radius: 10px;
+    transition: background 0.5s ease;
+}
+#admin .navlinks a:hover {
+    background: #1d1b16;
+}
+
+#admin .navlinks hr {
+    width: calc(100% - 10px);
+    margin: 0 auto;
+    background: #946b25;
+}
+
+#admin ul.navlinks {
+    padding: 0;
+    margin: 0;
+}
+
+#admin .panel {
+    padding: 20px;
+    flex-grow: 1;
+    max-width: 800px;
+    padding-bottom: 100px;
+}
+
+#admin .upload .uploadBtn {
+    font-size: 1rem;
+}
+
+#admin .upload-form input:not(.image),
+#admin .upload-form textarea {
+    background: #0c0b09;
+    padding: 8px;
+    border: 1px solid #cda45e;
+    font-family: Poppins;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 1rem;
+    color: white;
+}
+
+#admin .uploadProduct button[type="submit"] {
+    border: none;
+    outline: none;
+    color: #1a1814;
+    font-weight: 700;
+    background: #946b25;
+    padding: 8px 16px;
+    font-family: Poppins;
+    font-size: 1em;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 576px) {
+    #admin nav.navbar {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #admin .navlinks a {
+        display: inline-block;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+
+    #admin .navbar hr {
+        display: none;
+    }
 }

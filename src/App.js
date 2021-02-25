@@ -178,11 +178,6 @@ function App() {
                             <Store />
                         </Route>
                         <Route path="/admin">
-                            <Header
-                                props={{
-                                    LinkObj: [],
-                                }}
-                            />
                             <Admin />
                         </Route>
                         <Route path="/" exact>

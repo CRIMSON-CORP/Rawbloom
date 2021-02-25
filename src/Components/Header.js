@@ -49,17 +49,19 @@ function Header({ props: { LinkObj } }) {
                     />
                     <ul>{FinalLink}</ul>
                 </nav>
-                <li
-                    className="cart"
-                    onClick={(e) => {
-                        setDropCart(!dropCart);
-                    }}
-                >
-                    <span className={`notif ${cart.length > 0 ? "active" : ""}`}>
-                        {cart.length}
-                    </span>
-                    {dropCart ? <CgClose size="1.5rem" /> : <BiCart size="1.5rem" />}
-                </li>
+                {window.location.hash === "#/" && (
+                    <li
+                        className="cart"
+                        onClick={(e) => {
+                            setDropCart(!dropCart);
+                        }}
+                    >
+                        <span className={`notif ${cart.length > 0 ? "active" : ""}`}>
+                            {cart.length}
+                        </span>
+                        {dropCart ? <CgClose size="1.5rem" /> : <BiCart size="1.5rem" />}
+                    </li>
+                )}
                 <CSSTransition in={dropCart} timeout={400} classNames="dropCart" unmountOnExit>
                     <div className="cartDropDown">
                         <Cart cart={cart} edit={EditItemInCart} />
