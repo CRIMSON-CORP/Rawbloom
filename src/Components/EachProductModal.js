@@ -56,7 +56,7 @@ function EachProductModal({
                                     </button>
                                 </div>
                             </div>
-                            <div className="price">${ItemPrice}</div>
+                            <div className="price">&#8358;{ItemPrice}</div>
                         </div>
                         <button
                             className="add-to-cart"

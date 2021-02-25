@@ -2404,15 +2404,10 @@ form.admin_login button[type="submit"] {
     padding: 16px 20px;
     border-radius: 10px;
     transition: background 0.5s ease;
+    margin-bottom: 1rem;
 }
 #admin .navlinks a:hover {
-    background: #1d1b16;
-}
-
-#admin .navlinks hr {
-    width: calc(100% - 10px);
-    margin: 0 auto;
-    background: #946b25;
+    background: #1a1814;
 }
 
 #admin ul.navlinks {
@@ -2467,9 +2462,25 @@ form.admin_login button[type="submit"] {
         display: inline-block;
         padding: 8px 10px;
         font-size: 0.8rem;
+        margin-bottom: 0;
     }
 
     #admin .navbar hr {
         display: none;
     }
+}
+
+.menu span.out-of-stock {
+    color: rgb(199, 199, 199);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.menu button.out-of-stock-btn {
+    background: grey;
+    color: #333;
+}
+
+#admin .navbar .active {
+    background: #1d1b16;
 }

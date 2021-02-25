@@ -3,7 +3,7 @@ import Header from "./Header";
 import {} from "react-icons";
 import { MdArrowForward } from "react-icons/md";
 import { Notification } from "../utils/utils";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import firebase from "../utils/firebase";
 import { v4 } from "uuid";
 function Admin() {
@@ -100,16 +100,19 @@ function Panel() {
                     <div className="row panel-wrapper">
                         <nav className="nav navbar d-block">
                             <ul className="navlinks">
-                                <Link to="/admin/productUpload">Upload Product</Link>
-                                <hr />
-                                <Link to="/admin/orders">Order Requests</Link>
+                                <NavLink to="/admin/" exact activeClassName="active">
+                                    Upload Product
+                                </NavLink>
+                                <NavLink to="/admin/orders" activeClassName={"active"}>
+                                    Order Requests
+                                </NavLink>
                             </ul>
                         </nav>
                         <div className="panel">
                             <Route path={["/admin/productUpload", "/admin"]} exact>
                                 <ProductUpload />
                             </Route>
-                            <Route path="/admin/orders">
+                            <Route path="/admin/orders" exact>
                                 <Orders />
                             </Route>
                         </div>
@@ -165,6 +168,16 @@ function ProductUpload() {
                         const db = firebase.firestore();
                         const Ref = await db.collection("store").add(Data);
                         setStatus("Upload Finished!");
+                        setData({
+                            productName: "",
+                            productDescription: "",
+                            productPrice: "",
+                            productQuantity: "",
+                            productCategory: "",
+                        });
+                        setTimeout(() => {
+                            setStatus(null);
+                        }, 500);
                     } catch (err) {
                         setStatus(err.message);
                     }

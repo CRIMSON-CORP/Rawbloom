@@ -16,13 +16,17 @@ function EachProduct({
                 </div>
             </div>
             <div className="cta">
-                <button className="add-to-cart shadow" onClick={() => setModal(true)}>
+                <button
+                    className={`add-to-cart shadow ${quantity === 0 && "out-of-stock-btn"}`}
+                    onClick={() => setModal(true)}
+                    disabled={quantity === 0}
+                >
                     <FiPlus size="2em" color="white" />
                 </button>
                 {quantity == null || quantity == 0 ? (
                     <span className={"out-of-stock"}>Out of Stock</span>
                 ) : (
-                    <span className="price">${price}</span>
+                    <span className="price">&#8358;{price}</span>
                 )}
             </div>
             <CSSTransition in={modal} classNames="show" timeout={400} unmountOnExit>

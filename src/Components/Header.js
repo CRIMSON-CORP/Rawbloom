@@ -49,7 +49,7 @@ function Header({ props: { LinkObj } }) {
                     />
                     <ul>{FinalLink}</ul>
                 </nav>
-                {window.location.hash === "#/" && (
+                {window.location.hash.search("admin") === -1 && (
                     <li
                         className="cart"
                         onClick={(e) => {
