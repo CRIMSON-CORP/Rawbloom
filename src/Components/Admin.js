@@ -32,7 +32,6 @@ function Login({ setLoggedIn }) {
         } else {
             setLoggedIn(true);
         }
-        setLoggedIn(true);
     }
     return (
         <div className="form_wrapper">
