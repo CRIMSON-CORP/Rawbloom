@@ -126,7 +126,6 @@ function ProductUpload() {
         productPrice: 0,
         productQuantity: 1,
         productCategory: "",
-        imgURL: "",
     });
     const [image, setImage] = useState(null);
     const [status, setStatus] = useState(null);
@@ -151,7 +150,7 @@ function ProductUpload() {
             (snapshot) => {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 progress = Math.ceil(progress);
-                setStatus(`Uploading... ${progress}% Done...`);
+                setStatus(`Uploading image... ${progress}% Done...`);
             },
             (error) => {
                 setStatus(error.message);
@@ -159,9 +158,7 @@ function ProductUpload() {
             () => {
                 setStatus(`Uploading Data...`);
                 uploadTask.snapshot.ref.getDownloadURL().then(async (downloadURL) => {
-                    setData((prev) => {
-                        return { ...prev, imgURL: downloadURL };
-                    });
+                    Data.imgURL = downloadURL;
                     try {
                         const db = firebase.firestore();
                         const Ref = await db.collection("store").add(Data);
