@@ -5,6 +5,7 @@ import { MdArrowForward } from "react-icons/md";
 import { Notification } from "../utils/utils";
 import { Route, Link } from "react-router-dom";
 import firebase from "../utils/firebase";
+import { v4 } from "uuid";
 function Admin() {
     const [loggedIn, setLoggedIn] = useState(false);
     return loggedIn ? <Panel /> : <Login setLoggedIn={setLoggedIn} />;
@@ -123,8 +124,8 @@ function ProductUpload() {
     const [Data, setData] = useState({
         productName: "",
         productDescription: "",
-        productPrice: 0,
-        productQuantity: 1,
+        productPrice: "",
+        productQuantity: "",
         productCategory: "",
     });
     const [image, setImage] = useState(null);
@@ -159,6 +160,7 @@ function ProductUpload() {
                 setStatus(`Uploading Data...`);
                 uploadTask.snapshot.ref.getDownloadURL().then(async (downloadURL) => {
                     Data.imgURL = downloadURL;
+                    Data.id = v4();
                     try {
                         const db = firebase.firestore();
                         const Ref = await db.collection("store").add(Data);
