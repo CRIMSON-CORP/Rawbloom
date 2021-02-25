@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Rawbloom/static/css/main.db32c641.chunk.css",
-    "main.js": "/Rawbloom/static/js/main.346a0862.chunk.js",
-    "main.js.map": "/Rawbloom/static/js/main.346a0862.chunk.js.map",
+    "main.css": "/Rawbloom/static/css/main.e4c5cb5c.chunk.css",
+    "main.js": "/Rawbloom/static/js/main.53cb7775.chunk.js",
+    "main.js.map": "/Rawbloom/static/js/main.53cb7775.chunk.js.map",
     "runtime-main.js": "/Rawbloom/static/js/runtime-main.4be105ae.js",
     "runtime-main.js.map": "/Rawbloom/static/js/runtime-main.4be105ae.js.map",
     "static/css/2.fdd42135.chunk.css": "/Rawbloom/static/css/2.fdd42135.chunk.css",
-    "static/js/2.4ec1e8d9.chunk.js": "/Rawbloom/static/js/2.4ec1e8d9.chunk.js",
-    "static/js/2.4ec1e8d9.chunk.js.map": "/Rawbloom/static/js/2.4ec1e8d9.chunk.js.map",
+    "static/js/2.c4d6a58f.chunk.js": "/Rawbloom/static/js/2.c4d6a58f.chunk.js",
+    "static/js/2.c4d6a58f.chunk.js.map": "/Rawbloom/static/js/2.c4d6a58f.chunk.js.map",
     "static/js/3.fa9eaed2.chunk.js": "/Rawbloom/static/js/3.fa9eaed2.chunk.js",
     "static/js/3.fa9eaed2.chunk.js.map": "/Rawbloom/static/js/3.fa9eaed2.chunk.js.map",
     "index.html": "/Rawbloom/index.html",
     "service-worker.js": "/Rawbloom/service-worker.js",
     "service-worker.js.map": "/Rawbloom/service-worker.js.map",
     "static/css/2.fdd42135.chunk.css.map": "/Rawbloom/static/css/2.fdd42135.chunk.css.map",
-    "static/css/main.db32c641.chunk.css.map": "/Rawbloom/static/css/main.db32c641.chunk.css.map",
-    "static/js/2.4ec1e8d9.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.4ec1e8d9.chunk.js.LICENSE.txt",
-    "static/media/style.css": "/Rawbloom/static/media/hero-bg.d246ce40.jpg",
+    "static/css/main.e4c5cb5c.chunk.css.map": "/Rawbloom/static/css/main.e4c5cb5c.chunk.css.map",
+    "static/js/2.c4d6a58f.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.c4d6a58f.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/Rawbloom/static/media/about-bg.dfe20f92.jpg",
     "static/media/about.da1e6911.jpg": "/Rawbloom/static/media/about.da1e6911.jpg",
     "static/media/testimonials-1.54f2a70e.jpg": "/Rawbloom/static/media/testimonials-1.54f2a70e.jpg",
     "static/media/testimonials-2.4b41e5c0.jpg": "/Rawbloom/static/media/testimonials-2.4b41e5c0.jpg",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.4be105ae.js",
     "static/css/2.fdd42135.chunk.css",
-    "static/js/2.4ec1e8d9.chunk.js",
-    "static/css/main.db32c641.chunk.css",
-    "static/js/main.346a0862.chunk.js"
+    "static/js/2.c4d6a58f.chunk.js",
+    "static/css/main.e4c5cb5c.chunk.css",
+    "static/js/main.53cb7775.chunk.js"
   ]
 }
