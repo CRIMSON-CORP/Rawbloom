@@ -58,7 +58,7 @@ function EachProductModal({
                                     <button
                                         className="inc count"
                                         onClick={() => {
-                                            if (count > productQuantity) return;
+                                            if (count >= productQuantity) return;
                                             setCount(count + 1);
                                         }}
                                     >

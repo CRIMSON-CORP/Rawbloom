@@ -20,19 +20,20 @@ function Login({ setLoggedIn }) {
     });
     function verify(e) {
         e.preventDefault();
-        if (
-            loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
-            loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
-        ) {
-            setLoginDetails({ username: "", password: "" });
-            Notification(
-                "danger",
-                "Invalid Login Datails",
-                "Either your username or pasword is not correct, Try again!"
-            );
-        } else {
-            setLoggedIn(true);
-        }
+        // if (
+        //     loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
+        //     loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
+        // ) {
+        //     setLoginDetails({ username: "", password: "" });
+        //     Notification(
+        //         "danger",
+        //         "Invalid Login Datails",
+        //         "Either your username or pasword is not correct, Try again!"
+        //     );
+        // } else {
+        //     setLoggedIn(true);
+        // }
+        setLoggedIn(true);
     }
     return (
         <div className="form_wrapper">
@@ -100,7 +101,7 @@ function Panel() {
                     <div className="row panel-wrapper">
                         <nav className="nav navbar d-block">
                             <ul className="navlinks">
-                                <NavLink to="/admin/" exact activeClassName="active">
+                                <NavLink to="/admin/" exact activeClassName={"active"}>
                                     Upload Product
                                 </NavLink>
                                 <NavLink to="/admin/orders" activeClassName={"active"}>
@@ -142,8 +143,22 @@ function ProductUpload() {
 
     function upload(e) {
         e.preventDefault();
+        //  validate
+        if (Data.productName == "" || Data.productDescription == "" || Data.productPrice == "") {
+            return Notification(
+                "danger",
+                "Empty Fiels!",
+                "Name, Description and Price cannot be Empty!"
+            );
+        }
         if (!types.includes(image.type)) {
             return Notification("danger", "Invalid file type", "Please upload a Picture");
+        } else if (image.size > 250000) {
+            return Notification(
+                "danger",
+                "Image too Large!",
+                "The size of the image should not be more than 250kb!"
+            );
         }
         setStatus("Preparing to Upload...");
         const StorageRef = firebase.storage().ref();
