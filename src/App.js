@@ -138,19 +138,22 @@ function App() {
     }
 
     useEffect(() => {
-        try {
-            const db = firebase.database();
-            const ref = db.ref("store");
-            ref.on("value", async (snapshot) => {
-                const productsList = [];
-                for (const key in snapshot.val()) {
-                    productsList.push(snapshot.val()[key]);
-                }
-                setProducts(productsList);
-            });
-        } catch (error) {
-            console.log(error);
+        async function getProducts() {
+            try {
+                var list = [];
+                const db = firebase.firestore().collection("store");
+                const collection = await db.get();
+                await Promise.resolve(
+                    collection.forEach((data) => {
+                        list.push(data.data());
+                    })
+                );
+                setProducts(list);
+            } catch (error) {
+                console.log(error);
+            }
         }
+        getProducts();
     }, []);
 
     return Loading ? (

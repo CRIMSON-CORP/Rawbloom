@@ -28,18 +28,26 @@ function Store() {
 function ProductsList() {
     const { products, AddItemToCart } = useContext(CartContext);
     const ProductsJSX = products.map(
-        ({ quantity, id, description, name, imgSrc, category, price }) => {
+        ({
+            productQuantity,
+            id,
+            productDescription,
+            productName,
+            imgURL,
+            productCategory,
+            productPrice,
+        }) => {
             return (
                 <EachProduct
                     key={id}
                     props={{
-                        quantity,
+                        productQuantity,
                         id,
-                        description,
-                        name,
-                        imgSrc,
-                        category,
-                        price,
+                        productDescription,
+                        productName,
+                        imgURL,
+                        productCategory,
+                        productPrice,
                         AddItemToCart,
                     }}
                 />

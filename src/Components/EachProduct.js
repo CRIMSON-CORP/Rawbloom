@@ -3,42 +3,64 @@ import { CSSTransition } from "react-transition-group";
 import { FiPlus } from "react-icons/fi";
 import EachProductModal from "./EachProductModal";
 function EachProduct({
-    props: { quantity, id, description, name, imgSrc, category, price, AddItemToCart },
+    props: {
+        productQuantity,
+        id,
+        productDescription,
+        productName,
+        imgURL,
+        productCategory,
+        productPrice,
+        AddItemToCart,
+    },
 }) {
     const [modal, setModal] = useState(false);
     return (
-        <div className={`item shadow ${category}`}>
-            <img src={imgSrc} className="menu-img" alt="" />
+        <div className={`item shadow ${productCategory}`}>
+            <img src={imgURL} className="menu-img" alt="" />
             <div className="menu-content">
-                <p className="product-name">{name}</p>
+                <p className="product-name">
+                    {productName == null || productName === ""
+                        ? "No Name"
+                        : productName.length > 18
+                        ? productName.substr(0, 18) + "..."
+                        : productName}
+                </p>
                 <div className="menu-ingredients">
-                    {description == null || description === "" ? "No Description" : description}
+                    {productDescription == null || productDescription === ""
+                        ? "No Description"
+                        : productDescription.length > 80
+                        ? productDescription.substr(0, 80) + "..."
+                        : productDescription}
                 </div>
             </div>
             <div className="cta">
+                {console.log(productQuantity)}
                 <button
-                    className={`add-to-cart shadow ${quantity === 0 && "out-of-stock-btn"}`}
+                    className={`add-to-cart shadow ${
+                        (productQuantity == "" || productQuantity == 0) && "out-of-stock-btn"
+                    }`}
                     onClick={() => setModal(true)}
-                    disabled={quantity === 0}
+                    disabled={productQuantity == "" || productQuantity == 0}
                 >
                     <FiPlus size="2em" color="white" />
                 </button>
-                {quantity == null || quantity == 0 ? (
+                {productQuantity == "" || productQuantity == 0 ? (
                     <span className={"out-of-stock"}>Out of Stock</span>
                 ) : (
-                    <span className="price">&#8358;{price}</span>
+                    <span className="price">&#8358;{productPrice}</span>
                 )}
             </div>
             <CSSTransition in={modal} classNames="show" timeout={400} unmountOnExit>
                 <EachProductModal
                     props={{
-                        quantity,
+                        productQuantity,
                         id,
-                        description,
-                        name,
-                        imgSrc,
-                        category,
-                        price,
+                        productDescription,
+                        productName,
+                        imgURL,
+                        productCategory,
+                        productPrice,
                         setModal,
                         AddItemToCart,
                     }}

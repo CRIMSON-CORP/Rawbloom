@@ -3,12 +3,22 @@ import { Notification } from "../utils/utils";
 import { CgClose } from "react-icons/cg";
 import { FiMinus, FiPlus } from "react-icons/fi";
 function EachProductModal({
-    props: { quantity, id, description, name, imgSrc, category, price, setModal, AddItemToCart },
+    props: {
+        productQuantity,
+        id,
+        productDescription,
+        productName,
+        imgURL,
+        productCategory,
+        productPrice,
+        setModal,
+        AddItemToCart,
+    },
 }) {
     const [count, setCount] = useState(1);
-    const [ItemPrice, setItemPrice] = useState(price);
+    const [ItemPrice, setItemPrice] = useState(productPrice);
     useEffect(() => {
-        setItemPrice(count * price);
+        setItemPrice(count * productPrice);
     }, [count]);
     return (
         <div
@@ -25,13 +35,13 @@ function EachProductModal({
                         <CgClose size="1.5rem" />
                     </button>
                     <div className="imageDisplay col-lg-6 p-0">
-                        <img src={imgSrc} alt="" />
+                        <img src={imgURL} alt="" />
                     </div>
                     <div className="content p-4 col-lg-6">
                         <div className="content-body">
-                            <h1 className="name">{name}</h1>
-                            <p className="description">{description}</p>
-                            <p className="category">{category}</p>
+                            <h1 className="name">{productName}</h1>
+                            <p className="description">{productDescription}</p>
+                            <p className="category">{productCategory}</p>
                             <div className="quantity">
                                 <p>Quantity</p>
                                 <div className="bar">
@@ -48,7 +58,7 @@ function EachProductModal({
                                     <button
                                         className="inc count"
                                         onClick={() => {
-                                            if (count > quantity) return;
+                                            if (count > productQuantity) return;
                                             setCount(count + 1);
                                         }}
                                     >
@@ -63,12 +73,12 @@ function EachProductModal({
                             onClick={() => {
                                 const item = {
                                     id,
-                                    name,
+                                    name: productName,
                                     count,
                                     ItemPrice,
-                                    imgSrc,
-                                    quantity,
-                                    price,
+                                    imgSrc: imgURL,
+                                    quantity: productQuantity,
+                                    price: productPrice,
                                 };
                                 AddItemToCart(item);
                                 setModal(false);
