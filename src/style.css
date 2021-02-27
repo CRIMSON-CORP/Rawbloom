@@ -955,7 +955,7 @@ section {
     padding: 0px 20px;
     justify-content: space-evenly;
 }
-.menu .item {
+body .item {
     background-color: #494438;
     border-radius: 15px 15px 15px 30px;
     overflow: hidden;
@@ -966,7 +966,7 @@ section {
     height: 460px;
 }
 
-.menu .menu-img {
+body .menu-img {
     width: 100%;
     height: 250px;
     object-fit: cover;
@@ -974,11 +974,11 @@ section {
     transition: transform 0.3s ease-out;
 }
 
-.menu .menu-content {
+body .menu-content {
     padding: 20px;
 }
 
-.menu .menu-content p {
+body .menu-content p {
     padding-right: 10px;
     position: relative;
     z-index: 3;
@@ -989,14 +989,14 @@ section {
     margin-bottom: 5px;
 }
 
-.menu .item span {
+body .item span {
     position: relative;
     color: #cda45e;
     font-size: 28px;
     font-weight: bold;
 }
 
-.menu .menu-ingredients {
+body .menu-ingredients {
     font-style: italic;
     font-size: 12px;
     font-family: "Poppins", sans-serif;
@@ -2405,6 +2405,7 @@ form.admin_login button[type="submit"] {
     border-radius: 10px;
     transition: background 0.5s ease;
     margin-bottom: 1rem;
+    text-align: center;
 }
 #admin .navlinks a:hover {
     background: #1a1814;
@@ -2417,8 +2418,6 @@ form.admin_login button[type="submit"] {
 
 #admin .panel {
     padding: 20px;
-    flex-grow: 1;
-    max-width: 800px;
     padding-bottom: 100px;
 }
 
@@ -2451,18 +2450,41 @@ form.admin_login button[type="submit"] {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
+.panel-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+}
+
+.uploadProduct {
+    max-width: 800px;
+}
+
+@media (max-width: 992px) {
+    .panel-wrapper {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto;
+    }
+    #admin nav.navbar {
+        width: 100%;
+    }
+    #admin nav.navbar ul.navlinks {
+        width: 100%;
+        display: flex;
+    }
+}
+
 @media (max-width: 576px) {
     #admin nav.navbar {
         width: 100%;
         padding-left: 15px;
         padding-right: 15px;
     }
-
     #admin .navlinks a {
         display: inline-block;
         padding: 8px 10px;
         font-size: 0.8rem;
         margin-bottom: 0;
+        margin-right: 10px;
     }
 
     #admin .navbar hr {
@@ -2483,4 +2505,68 @@ form.admin_login button[type="submit"] {
 
 #admin .navbar .active {
     background: #1d1b16;
+}
+
+.editProduct .item {
+    border-radius: 15px;
+}
+.editProduct .item .cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+}
+
+.editProduct .item .cta button {
+    height: 60px;
+    text-transform: uppercase;
+    border-radius: 0px;
+    box-shadow: none !important;
+    color: white;
+    font-weight: 600;
+}
+
+.editProduct .item .cta button.editProductbtn {
+    background: #cda45e;
+}
+.editProduct .item .cta button.deleteProductbtn {
+    background: #e51400;
+}
+
+.editList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    grid-gap: 20px;
+    justify-content: space-around;
+}
+
+.modalBox.edit-modal {
+    width: 300px;
+    height: auto;
+    text-align: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.modalBox.edit-modal .button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.modalBox.edit-modal .button button {
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.modalBox.edit-modal .button button.delete {
+    background-color: #e51400;
+}
+.modalBox.edit-modal .button button.cancel {
+    background-color: #333;
 }

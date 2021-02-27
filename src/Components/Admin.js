@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import {} from "react-icons";
 import { MdArrowForward } from "react-icons/md";
@@ -6,6 +6,7 @@ import { Notification } from "../utils/utils";
 import { Route, NavLink } from "react-router-dom";
 import firebase from "../utils/firebase";
 import { v4 } from "uuid";
+import { CSSTransition } from "react-transition-group";
 function Admin() {
     const [loggedIn, setLoggedIn] = useState(false);
     return loggedIn ? <Panel /> : <Login setLoggedIn={setLoggedIn} />;
@@ -98,11 +99,14 @@ function Panel() {
                     </div>
                 </div>
                 <div className="container-fluid">
-                    <div className="row panel-wrapper">
+                    <div className="panel-wrapper">
                         <nav className="nav navbar d-block">
                             <ul className="navlinks">
                                 <NavLink to="/admin/" exact activeClassName={"active"}>
                                     Upload Product
+                                </NavLink>
+                                <NavLink to="/admin/editStore" exact activeClassName={"active"}>
+                                    Edit store
                                 </NavLink>
                                 <NavLink to="/admin/orders" activeClassName={"active"}>
                                     Order Requests
@@ -112,6 +116,9 @@ function Panel() {
                         <div className="panel">
                             <Route path={["/admin/productUpload", "/admin"]} exact>
                                 <ProductUpload />
+                            </Route>
+                            <Route path={"/admin/editStore"} exact>
+                                <EditStore />
                             </Route>
                             <Route path="/admin/orders" exact>
                                 <Orders />
@@ -178,7 +185,8 @@ function ProductUpload() {
                 setStatus(`Uploading Data...`);
                 uploadTask.snapshot.ref.getDownloadURL().then(async (downloadURL) => {
                     Data.imgURL = downloadURL;
-                    Data.id = v4();
+                    Data.productPrice = parseInt(Data.productPrice);
+                    Data.productQuantity = parseInt(Data.productQuantity);
                     try {
                         const db = firebase.firestore();
                         const Ref = await db.collection("store").add(Data);
@@ -281,6 +289,159 @@ function ProductUpload() {
         </div>
     );
 }
+
+function EditStore() {
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        async function getProducts() {
+            try {
+                var list = [];
+                const db = firebase.firestore().collection("store");
+                const collection = await db.get();
+                await Promise.resolve(
+                    collection.forEach((data) => {
+                        list.push(data.data());
+                    })
+                );
+                setProducts(list);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getProducts();
+    }, [products]);
+    products.length = 6;
+    const productsJSX = products.map((product, index) => {
+        return <ItemCard key={index} props={product} />;
+    });
+    return (
+        <div className="editProduct">
+            <h4>Edit Store</h4>
+            <div className="editList">{productsJSX}</div>
+        </div>
+    );
+}
+
 function Orders() {
     return <div>Order Requests</div>;
 }
+
+function ItemCard({
+    props: {
+        productCategory,
+        productDescription,
+        productName,
+        productPrice,
+        productQuantity,
+        imgURL,
+        id,
+    },
+}) {
+    const [modal, setModal] = useState(false);
+    return (
+        <div className={`item shadow ${productCategory}`}>
+            <img src={imgURL} className="menu-img" alt="" />
+            <div className="menu-content">
+                <p className="product-name">
+                    {productName == null || productName === ""
+                        ? "No Name"
+                        : productName.length > 18
+                        ? productName.substr(0, 18) + "..."
+                        : productName}
+                </p>
+                <div className="menu-ingredients">
+                    {productDescription == null || productDescription === ""
+                        ? "No Description"
+                        : productDescription.length > 80
+                        ? productDescription.substr(0, 80) + "..."
+                        : productDescription}
+                </div>
+            </div>
+            <div className="cta">
+                <button className="editProductbtn">edit</button>
+                <button className="deleteProductbtn" onClick={() => setModal(true)}>
+                    delete
+                </button>
+            </div>
+            {/* <CSSTransition in={modal} classNames="show" timeout={250} unmountOnExit>
+                <EditModal
+                    props={{
+                        productCategory,
+                        productDescription,
+                        productName,
+                        productPrice,
+                        productQuantity,
+                        imgURL,
+                        id,
+                    }}
+                />
+            </CSSTransition> */}
+            <CSSTransition in={modal} classNames="show" timeout={250} unmountOnExit>
+                <DeleteModal props={{ modal, setModal, id }} />
+            </CSSTransition>
+        </div>
+    );
+}
+
+function DeleteModal({ props: { setModal, id } }) {
+    async function deletproduct(id) {
+        const db = firebase.firestore().collection("store").where("id", "==", `${id}`);
+        const collection = await db.get();
+        try {
+            collection.forEach(async (data) => {
+                data.ref
+                    .delete()
+                    .then(() => {
+                        Notification(
+                            "success",
+                            "Product Deleted!",
+                            "The product has been removed from your Store!"
+                        );
+                        setModal(false);
+                    })
+                    .catch((err) => {
+                        Notification(
+                            "danger",
+                            "An Error Occured",
+                            "Product could not removed from your Store!"
+                        );
+                    });
+            });
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+    return (
+        <div
+            className="PlaceOrderModal ProductModal"
+            onClick={(e) => {
+                if (e.target.classList.contains("ProductModal")) {
+                    setModal(false);
+                }
+            }}
+        >
+            <div className="modalBox container edit-modal">
+                <div className="row">
+                    <h4>Are you sure you want to Delete this Product?</h4>
+                    <div className="button">
+                        <button className="cancel" onClick={() => setModal(false)}>
+                            Cancel
+                        </button>
+                        <button className="delete" onClick={() => deletproduct(id)}>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+// function EditModal({props:{productCategory,
+//         productDescription,
+//         productName,
+//         productPrice,
+//         productQuantity,
+//         imgURL,
+//         id,}}){
+//     return()
+// }

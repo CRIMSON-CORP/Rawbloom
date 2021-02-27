@@ -15,6 +15,7 @@ function EachProduct({
     },
 }) {
     const [modal, setModal] = useState(false);
+    productQuantity = 1;
     return (
         <div className={`item shadow ${productCategory}`}>
             <img src={imgURL} className="menu-img" alt="" />
@@ -35,7 +36,6 @@ function EachProduct({
                 </div>
             </div>
             <div className="cta">
-                {console.log(productQuantity)}
                 <button
                     className={`add-to-cart shadow ${
                         (productQuantity == "" || productQuantity == 0) && "out-of-stock-btn"

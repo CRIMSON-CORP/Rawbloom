@@ -31,33 +31,9 @@ function ProductsList() {
     const { products, AddItemToCart } = useContext(CartContext);
     products.length = 4;
     const newest = products;
-    const ProductsJSX = newest.map(
-        ({
-            productQuantity,
-            id,
-            productDescription,
-            productName,
-            imgURL,
-            productCategory,
-            productPrice,
-        }) => {
-            return (
-                <EachProduct
-                    key={id}
-                    props={{
-                        productQuantity,
-                        id,
-                        productDescription,
-                        productName,
-                        imgURL,
-                        productCategory,
-                        productPrice,
-                        AddItemToCart,
-                    }}
-                />
-            );
-        }
-    );
+    const ProductsJSX = newest.map((product, index) => {
+        return <EachProduct key={index} props={{ ...product, AddItemToCart }} />;
+    });
 
     return ProductsJSX;
 }
