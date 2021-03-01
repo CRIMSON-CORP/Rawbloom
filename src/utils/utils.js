@@ -268,3 +268,5 @@ export const HeaderLinks = [
         name: "Contact",
     },
 ];
+
+export const ImageTypes = ["image/png", "image/jpg", "image/jpeg"];

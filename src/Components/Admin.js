@@ -308,8 +308,9 @@ function EditStore() {
                 console.log(error);
             }
         }
+        console.log("Rerender!");
         getProducts();
-    }, [products]);
+    }, []);
     products.length = 6;
     const productsJSX = products.map((product, index) => {
         return <ItemCard key={index} props={product} />;
