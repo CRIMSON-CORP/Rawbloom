@@ -58,6 +58,57 @@ function OrderForm({ props: { setData, setProceed, next } }) {
             </li>
         );
     });
+
+    function Reducer(name, value) {
+        switch (name) {
+            case "name":
+                setData(name, value);
+                if (value.length < 4 && value.length > 0) {
+                    setErrs((prev) => {
+                        return { ...prev, [name]: true };
+                    });
+                } else
+                    setErrs((prev) => {
+                        return { ...prev, [name]: false };
+                    });
+                break;
+            case "email":
+                setData(name, value);
+                var mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!value.match(mailformat) && value.length > 0) {
+                    setErrs((prev) => {
+                        return { ...prev, [name]: true };
+                    });
+                } else
+                    setErrs((prev) => {
+                        return { ...prev, [name]: false };
+                    });
+                break;
+            case "number":
+                setData(name, value);
+                if ((value.length !== 0 && value.length < 11) || value.length > 14) {
+                    setErrs((prev) => {
+                        return { ...prev, [name]: true };
+                    });
+                } else
+                    setErrs((prev) => {
+                        return { ...prev, [name]: false };
+                    });
+                break;
+            case "address":
+                setData(name, value);
+                if (value.length <= 0) {
+                    setErrs((prev) => {
+                        return { ...prev, [name]: true };
+                    });
+                } else
+                    setErrs((prev) => {
+                        return { ...prev, [name]: false };
+                    });
+            default:
+                return null;
+        }
+    }
     return (
         <div>
             <div className="slide1">
@@ -76,17 +127,7 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 placeholder="Your Full name"
                                 data-rule="minlen:4"
                                 autoComplete={"off"}
-                                onChange={({ target: { name, value } }) => {
-                                    setData(name, value);
-                                    if (value.length < 4 && value.length > 0) {
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: true };
-                                        });
-                                    } else
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: false };
-                                        });
-                                }}
+                                onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.name ? "show" : ""}`}>
                                 <BsExclamationCircle strokeWidth={1} /> Please enter at least 4
@@ -102,18 +143,7 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 placeholder="Your Email"
                                 data-rule="email"
                                 autoComplete={"off"}
-                                onChange={({ target: { name, value } }) => {
-                                    setData(name, value);
-                                    var mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                    if (!value.match(mailformat) && value.length > 0) {
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: true };
-                                        });
-                                    } else
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: false };
-                                        });
-                                }}
+                                onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.email ? "show" : ""}`}>
                                 <BsExclamationCircle strokeWidth={1} /> Please enter a valid email
@@ -130,20 +160,7 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 placeholder="Your Phone Number"
                                 data-rule="minlen:11"
                                 autoComplete={"off"}
-                                onChange={({ target: { name, value } }) => {
-                                    setData(name, value);
-                                    if (
-                                        (value.length !== 0 && value.length < 11) ||
-                                        value.length > 14
-                                    ) {
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: true };
-                                        });
-                                    } else
-                                        setErrs((prev) => {
-                                            return { ...prev, [name]: false };
-                                        });
-                                }}
+                                onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.number ? "show" : ""}`}>
                                 <BsExclamationCircle strokeWidth={1} /> Please enter a valid Phone
@@ -199,23 +216,12 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                             rows="4"
                             data-rule="required"
                             placeholder="Your Address"
-                            onChange={({ target: { name, value } }) => {
-                                setData(name, value);
-                                if (value.length <= 0) {
-                                    setErrs((prev) => {
-                                        return { ...prev, [name]: true };
-                                    });
-                                } else
-                                    setErrs((prev) => {
-                                        return { ...prev, [name]: false };
-                                    });
-                            }}
+                            onChange={({ target: { name, value } }) => Reducer(name, value)}
                         ></textarea>
                         <div className={`validate ${errs.address ? "show" : ""}`}>
                             <BsExclamationCircle strokeWidth={1} /> Please write your Address!
                         </div>
                     </div>
-
                     <div className="text-center">
                         <div className={`proceed ${proceed ? "" : "disabled"}`} onClick={next}>
                             Proceed to Order
