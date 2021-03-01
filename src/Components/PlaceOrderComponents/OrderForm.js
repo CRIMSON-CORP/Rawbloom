@@ -125,7 +125,6 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 className="form-control"
                                 id="name"
                                 placeholder="Your Full name"
-                                data-rule="minlen:4"
                                 autoComplete={"off"}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
@@ -141,7 +140,6 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 name="email"
                                 id="email"
                                 placeholder="Your Email"
-                                data-rule="email"
                                 autoComplete={"off"}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
@@ -158,7 +156,6 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                                 className="form-control"
                                 id="number"
                                 placeholder="Your Phone Number"
-                                data-rule="minlen:11"
                                 autoComplete={"off"}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
@@ -214,7 +211,6 @@ function OrderForm({ props: { setData, setProceed, next } }) {
                             className="form-control"
                             name="address"
                             rows="4"
-                            data-rule="required"
                             placeholder="Your Address"
                             onChange={({ target: { name, value } }) => Reducer(name, value)}
                         ></textarea>
