@@ -1,34 +1,29 @@
 {
   "files": {
-    "main.css": "/Rawbloom/static/css/main.2767fe4a.chunk.css",
-    "main.js": "/Rawbloom/static/js/main.7f5de175.chunk.js",
-    "main.js.map": "/Rawbloom/static/js/main.7f5de175.chunk.js.map",
+    "main.css": "/Rawbloom/static/css/main.75fdbc86.chunk.css",
+    "main.js": "/Rawbloom/static/js/main.8e8278f7.chunk.js",
+    "main.js.map": "/Rawbloom/static/js/main.8e8278f7.chunk.js.map",
     "runtime-main.js": "/Rawbloom/static/js/runtime-main.62358cf0.js",
     "runtime-main.js.map": "/Rawbloom/static/js/runtime-main.62358cf0.js.map",
-    "static/css/2.fdd42135.chunk.css": "/Rawbloom/static/css/2.fdd42135.chunk.css",
-    "static/js/2.09c66a23.chunk.js": "/Rawbloom/static/js/2.09c66a23.chunk.js",
-    "static/js/2.09c66a23.chunk.js.map": "/Rawbloom/static/js/2.09c66a23.chunk.js.map",
+    "static/css/2.2bba330b.chunk.css": "/Rawbloom/static/css/2.2bba330b.chunk.css",
+    "static/js/2.a263af4e.chunk.js": "/Rawbloom/static/js/2.a263af4e.chunk.js",
+    "static/js/2.a263af4e.chunk.js.map": "/Rawbloom/static/js/2.a263af4e.chunk.js.map",
     "static/js/3.3f921e3c.chunk.js": "/Rawbloom/static/js/3.3f921e3c.chunk.js",
     "static/js/3.3f921e3c.chunk.js.map": "/Rawbloom/static/js/3.3f921e3c.chunk.js.map",
     "index.html": "/Rawbloom/index.html",
     "service-worker.js": "/Rawbloom/service-worker.js",
     "service-worker.js.map": "/Rawbloom/service-worker.js.map",
-    "static/css/2.fdd42135.chunk.css.map": "/Rawbloom/static/css/2.fdd42135.chunk.css.map",
-    "static/css/main.2767fe4a.chunk.css.map": "/Rawbloom/static/css/main.2767fe4a.chunk.css.map",
-    "static/js/2.09c66a23.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.09c66a23.chunk.js.LICENSE.txt",
+    "static/css/2.2bba330b.chunk.css.map": "/Rawbloom/static/css/2.2bba330b.chunk.css.map",
+    "static/css/main.75fdbc86.chunk.css.map": "/Rawbloom/static/css/main.75fdbc86.chunk.css.map",
+    "static/js/2.a263af4e.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.a263af4e.chunk.js.LICENSE.txt",
     "static/media/style.css": "/Rawbloom/static/media/about-bg.dfe20f92.jpg",
-    "static/media/about.da1e6911.jpg": "/Rawbloom/static/media/about.da1e6911.jpg",
-    "static/media/testimonials-1.54f2a70e.jpg": "/Rawbloom/static/media/testimonials-1.54f2a70e.jpg",
-    "static/media/testimonials-2.4b41e5c0.jpg": "/Rawbloom/static/media/testimonials-2.4b41e5c0.jpg",
-    "static/media/testimonials-3.bec51ce1.jpg": "/Rawbloom/static/media/testimonials-3.bec51ce1.jpg",
-    "static/media/testimonials-4.58081dc8.jpg": "/Rawbloom/static/media/testimonials-4.58081dc8.jpg",
-    "static/media/testimonials-5.8732aa37.jpg": "/Rawbloom/static/media/testimonials-5.8732aa37.jpg"
+    "static/media/about.da1e6911.jpg": "/Rawbloom/static/media/about.da1e6911.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.62358cf0.js",
-    "static/css/2.fdd42135.chunk.css",
-    "static/js/2.09c66a23.chunk.js",
-    "static/css/main.2767fe4a.chunk.css",
-    "static/js/main.7f5de175.chunk.js"
+    "static/css/2.2bba330b.chunk.css",
+    "static/js/2.a263af4e.chunk.js",
+    "static/css/main.75fdbc86.chunk.css",
+    "static/js/main.8e8278f7.chunk.js"
   ]
 }
