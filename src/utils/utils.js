@@ -271,11 +271,11 @@ export const HeaderLinks = [
 
 export const ImageTypes = ["image/png", "image/jpg", "image/jpeg"];
 
-export function Copy(message) {
+export function Copy(message, item) {
     var temp = document.createElement("input");
     var body = document.querySelector("body");
     body.appendChild(temp);
-    temp.value = document.querySelector("#acc").innerHTML;
+    temp.value = document.querySelector(item).innerHTML;
     temp.select();
     document.execCommand("copy");
     body.removeChild(temp);

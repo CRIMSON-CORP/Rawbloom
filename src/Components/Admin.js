@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "./Header";
 import {} from "react-icons";
 import { MdArrowForward } from "react-icons/md";
@@ -7,6 +7,7 @@ import { Route, NavLink } from "react-router-dom";
 import firebase from "../utils/firebase";
 import { v4 } from "uuid";
 import { CSSTransition } from "react-transition-group";
+import { CartContext } from "../utils/Contexts";
 function Admin() {
     const [loggedIn, setLoggedIn] = useState(false);
     return loggedIn ? <Panel /> : <Login setLoggedIn={setLoggedIn} />;
@@ -291,30 +292,12 @@ function ProductUpload() {
 }
 
 function EditStore() {
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
-        async function getProducts() {
-            try {
-                var list = [];
-                const db = firebase.firestore().collection("store");
-                const collection = await db.get();
-                await Promise.resolve(
-                    collection.forEach((data) => {
-                        list.push(data.data());
-                    })
-                );
-                setProducts(list);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        console.log("Rerender!");
-        getProducts();
-    }, []);
-    products.length = 6;
+    const { products } = useContext(CartContext);
+
     const productsJSX = products.map((product, index) => {
         return <ItemCard key={index} props={product} />;
     });
+    console.log(products);
     return (
         <div className="editProduct">
             <h4>Edit Store</h4>

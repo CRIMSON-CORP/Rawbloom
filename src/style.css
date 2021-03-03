@@ -1675,7 +1675,8 @@ button {
     .modalBox {
         height: 85vh;
         overflow-y: scroll;
-        width: 360px;
+        max-width: 500px;
+        width: 100%;
         font-size: 8px;
     }
 
@@ -2210,7 +2211,7 @@ textarea {
     font-size: 1.2em;
 }
 
-.content pre .copy {
+.copy {
     background: #1a1814;
     color: #cda45e;
     padding: 5px 8px;
@@ -2575,12 +2576,12 @@ form.admin_login button[type="submit"] {
     border-radius: 5px;
     font-size: 0.9rem;
     margin-right: 15px;
-    color:white
+    color: white;
 }
 
-.uploadEdit button.uploadEditbtn{
-    background:#946b25;
+.uploadEdit button.uploadEditbtn {
+    background: #946b25;
 }
-.uploadEdit button.cancel{
-    background:#333;
+.uploadEdit button.cancel {
+    background: #333;
 }

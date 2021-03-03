@@ -170,6 +170,7 @@ function App() {
                             totalPrice,
                             setPlaceOrderModal,
                             products,
+                            AddToCart,
                         }}
                     >
                         <Route path="/store">

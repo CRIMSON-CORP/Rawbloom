@@ -29,8 +29,7 @@ function Shop() {
 }
 function ProductsList() {
     const { products, AddItemToCart } = useContext(CartContext);
-    products.length = 4;
-    const newest = products;
+    const newest = products.slice(0,4);
     const ProductsJSX = newest.map((product, index) => {
         return <EachProduct key={index} props={{ ...product, AddItemToCart }} />;
     });

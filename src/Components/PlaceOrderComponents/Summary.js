@@ -1,8 +1,66 @@
-import React, { useContext } from "react";
-import { CartContext } from "../utils/Contexts";
+import React, { useContext, useState } from "react";
+import { BiLeftArrowAlt } from "react-icons/bi";
+import { CartContext, formDataContext } from "../../utils/Contexts";
 import RecieptUpload from "./RecieptUpload";
-function Summary({ props: { formData, prev, confirm } }) {
-    const { totalPrice } = useContext(CartContext);
+import { Copy } from "../../utils/utils";
+import { v4 } from "uuid";
+import { MdCheckCircle, MdChevronLeft } from "react-icons/md";
+import firebase from "../../utils/firebase";
+function Summary({ props: { prev, confirm, modalRef } }) {
+    const { totalPrice, cart, AddToCart } = useContext(CartContext);
+    const { formData, setFormData } = useContext(formDataContext);
+    const [OrderID, setOrderID] = useState(null);
+    const [feedback, setFeedback] = useState(null);
+
+    async function Order(e) {
+        e.preventDefault();
+        setOrderID(v4());
+        const payload = {
+            OrderId: OrderID,
+            completed: false,
+            payload: {
+                ClientData: formData,
+                ClientCart: cart,
+            },
+        };
+        modalRef.current.scrollTop = 0;
+
+        try {
+            const Ref = firebase.firestore().collection("orders");
+            await Ref.add(payload);
+            setFeedback(true);
+            AddToCart([]);
+            setFormData({
+                name: "",
+                email: "",
+                number: "",
+                address: "",
+                region: "",
+                receiptUrl: "",
+                shipping_fee: "",
+                delivery_method: "",
+            });
+        } catch (err) {
+            setFeedback(false);
+        }
+    }
+
+    return (
+        <>
+            {feedback === null ? (
+                <Details props={{ totalPrice, prev, confirm, Order, formData }} />
+            ) : feedback === true ? (
+                <SuccessFeedBack props={{ OrderID }} />
+            ) : (
+                <FailedFeedBack props={{ prev, setFeedback }} />
+            )}
+        </>
+    );
+}
+
+export default Summary;
+
+function Details({ props: { totalPrice, prev, confirm, Order, formData } }) {
     return (
         <div className="slide2">
             <div className="checkout">
@@ -70,14 +128,15 @@ function Summary({ props: { formData, prev, confirm } }) {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     Copy(
-                                        "Account Number has been Copied to your Clip Board, Paste it any where!"
+                                        "Account Number has been Copied to your Clip Board, Paste it any where!",
+                                        "#acc"
                                     );
                                 }}
                             >
                                 Copy Account Number
                             </button>
                         </pre>
-                        <RecieptUpload props={{ setFormData, formData }} />
+                        <RecieptUpload />
                     </div>
                 </div>
                 <div className="cta  mt-3">
@@ -93,4 +152,49 @@ function Summary({ props: { formData, prev, confirm } }) {
     );
 }
 
-export default Summary;
+function SuccessFeedBack({ props: { OrderID } }) {
+    return (
+        <div className="text-center m-auto">
+            <MdCheckCircle size="5rem" className="mb-4" />
+            <h3>Sucess!</h3>
+            <p>We have recieved your Order!</p>
+            <p>
+                Your Order ID = <span id="Orderid">{OrderID}</span>
+            </p>
+            <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    Copy(
+                        "Your Id has been Copied, Please Keep this Id as it will might be needed later",
+                        "#Orderid"
+                    );
+                }}
+                className="copy"
+            >
+                Click to copy ID
+            </button>
+        </div>
+    );
+}
+function FailedFeedBack({ props: { prev, setFeedback } }) {
+    const { setConfirm } = useContext(formDataContext);
+    return (
+        <div className="text-center m-auto">
+            <MdCheckCircle size="5rem" className="mb-4" />
+            <h3>Failed!</h3>
+            <p>An Error Occured</p>
+            <p>Your Order could not be finished, please try again later</p>
+            <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    prev();
+                    setFeedback(null);
+                    setConfirm(false);
+                }}
+                className="copy"
+            >
+                <MdChevronLeft /> Go back
+            </button>
+        </div>
+    );
+}

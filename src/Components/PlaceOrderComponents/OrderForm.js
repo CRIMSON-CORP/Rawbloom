@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { CSSTransition } from "react-transition-group";
 import OnOutsideClick from "react-outclick";
 import { States } from "../../utils/utils";
-function OrderForm({ props: { setData, setProceed, next } }) {
+import { formDataContext } from "../../utils/Contexts";
+function OrderForm({ props: { setData, setProceed, next, proceed } }) {
     const [errs, setErrs] = useState({
         name: false,
         email: false,
@@ -12,6 +13,7 @@ function OrderForm({ props: { setData, setProceed, next } }) {
         address: false,
     });
     const [Drop, setDrop] = useState(false);
+    const { formData, setFormData } = useContext(formDataContext);
 
     useEffect(() => {
         setProceed(false);
@@ -58,6 +60,12 @@ function OrderForm({ props: { setData, setProceed, next } }) {
             </li>
         );
     });
+
+    function setData(name, value) {
+        setFormData((prev) => {
+            return { ...prev, [name]: value };
+        });
+    }
 
     function Reducer(name, value) {
         switch (name) {

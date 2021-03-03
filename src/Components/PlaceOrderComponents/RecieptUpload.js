@@ -1,8 +1,11 @@
-import React from "react";
-
-function RecieptUpload({ props: { setFormData, formData } }) {
+import React, { useContext, useState } from "react";
+import { formDataContext } from "../../utils/Contexts";
+import { ImageTypes } from "../../utils/utils";
+import { UploadImage } from "../../utils/firebaseUtils";
+function RecieptUpload() {
     const [image, setImage] = useState(null);
     const [uploadUpdate, setUploadUpdate] = useState(null);
+    const { formData, setFormData } = useContext(formDataContext);
 
     async function upload(e) {
         e.preventDefault();
@@ -10,12 +13,16 @@ function RecieptUpload({ props: { setFormData, formData } }) {
         else if (!ImageTypes.includes(image.type)) {
             return alert("Please upload an Image");
         }
-        setUploadUpdate("Attempting Upload...");
-        const imageURL = await UploadImage(image, `Reciepts/${formData.name}`);
-        setFormData((prev) => {
-            return { ...prev, receiptUrl: imageURL };
-        });
-        setUploadUpdate("Uploading Complete.");
+        try {
+            setUploadUpdate("Attempting Upload...");
+            const imageURL = await UploadImage(image, `Reciepts/${formData.name}`);
+            setFormData((prev) => {
+                return { ...prev, receiptUrl: imageURL };
+            });
+            setUploadUpdate("Uploading Complete.");
+        } catch (err) {
+            setUploadUpdate("Eror Upoaloading your Reciept! please try again.");
+        }
     }
     return (
         <div className="imageupload">

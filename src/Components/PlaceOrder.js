@@ -3,16 +3,11 @@ import { CgClose } from "react-icons/cg";
 import { CSSTransition } from "react-transition-group";
 import Swiper from "react-id-swiper";
 import "swiper/swiper.min.css";
-import firebase from "../utils/firebase";
-import { BiLeftArrowAlt } from "react-icons/bi";
-import { ImageTypes, Copy } from "../utils/utils";
-import { CartContext } from "../utils/Contexts";
-import { UploadImage } from "../utils/firebaseUtils";
+import { CartContext, formDataContext } from "../utils/Contexts";
 import OrderForm from "./PlaceOrderComponents/OrderForm";
-import { v4 } from "uuid";
 import Summary from "./PlaceOrderComponents/Summary";
 function PlaceOrder({ props: { PlaceOrderModal } }) {
-    const { setPlaceOrderModal, totalPrice, cart } = useContext(CartContext);
+    const { setPlaceOrderModal } = useContext(CartContext);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -34,43 +29,18 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
         if (proceed && formData.receiptUrl !== "") {
             setConfirm(true);
         }
-    }, [proceed]);
+    }, [proceed, formData.receiptUrl]);
 
-    function setData(name, value) {
-        setFormData((prev) => {
-            return { ...prev, [name]: value };
-        });
-    }
     function next() {
-        if (SwiperRef.current && SwiperRef.current.swiper) {
+        if (SwiperRef.current) {
             SwiperRef.current.swiper.slideNext();
             modalRef.current.scrollTop = 0;
         }
     }
     function prev() {
-        if (SwiperRef.current && SwiperRef.current.swiper) {
+        if (SwiperRef.current) {
             SwiperRef.current.swiper.slidePrev();
-
             modalRef.current.scrollTop = 0;
-        }
-    }
-
-    async function Order(e) {
-        e.preventDefault();
-        const payload = {
-            OrderId: v4(),
-            completed: false,
-            payload: {
-                ClientData: formData,
-                ClientCart: cart,
-            },
-        };
-        console.log(payload);
-        try {
-            const Ref = firebase.database().ref("orders");
-            await Ref.add(payload);
-        } catch (err) {
-            console.log(err);
         }
     }
 
@@ -87,12 +57,18 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
                         <button onClick={() => setPlaceOrderModal(false)} className="closeModal">
                             <CgClose size="1.5rem" />
                         </button>
-                        <form className="text-center">
-                            <Swiper ref={SwiperRef} {...Params} allowTouchMove={false}>
-                                <OrderForm props={{ setData, setProceed, next }} />
-                                <Summary props={{ formData }} />
-                            </Swiper>
-                        </form>
+                        <formDataContext.Provider value={{ formData, setFormData, setConfirm }}>
+                            <form className="text-center">
+                                <Swiper ref={SwiperRef} {...Params} allowTouchMove={false}>
+                                    <div>
+                                        <OrderForm props={{ setProceed, next, proceed }} />
+                                    </div>
+                                    <div>
+                                        <Summary props={{ confirm, prev, modalRef }} />
+                                    </div>
+                                </Swiper>
+                            </form>
+                        </formDataContext.Provider>
                     </div>
                 </div>
             </div>
