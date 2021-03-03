@@ -31,6 +31,13 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
         }
     }, [proceed, formData.receiptUrl]);
 
+    useEffect(() => {
+        return () => {
+            setProceed(false);
+            setConfirm(false);
+        };
+    }, []);
+
     function next() {
         if (SwiperRef.current) {
             SwiperRef.current.swiper.slideNext();

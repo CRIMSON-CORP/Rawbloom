@@ -1,20 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { CartContext, formDataContext } from "../../utils/Contexts";
 import RecieptUpload from "./RecieptUpload";
 import { Copy } from "../../utils/utils";
 import { v4 } from "uuid";
-import { MdCheckCircle, MdChevronLeft } from "react-icons/md";
+import { MdCancel, MdCheckCircle, MdChevronLeft } from "react-icons/md";
 import firebase from "../../utils/firebase";
+import emailjs from "emailjs-com";
 function Summary({ props: { prev, confirm, modalRef } }) {
     const { totalPrice, cart, AddToCart } = useContext(CartContext);
-    const { formData, setFormData } = useContext(formDataContext);
-    const [OrderID, setOrderID] = useState(null);
+    const { formData, setFormData, setConfirm } = useContext(formDataContext);
     const [feedback, setFeedback] = useState(null);
+    const [OrderIDState, setOrderIDState] = useState("");
+
+    useEffect(() => {
+        emailjs.init(process.env.REACT_APP_ORDER_USER_ID);
+    });
 
     async function Order(e) {
         e.preventDefault();
-        setOrderID(v4());
+        const OrderID = v4();
+        setOrderIDState(OrderID);
         const payload = {
             OrderId: OrderID,
             completed: false,
@@ -26,8 +32,27 @@ function Summary({ props: { prev, confirm, modalRef } }) {
         modalRef.current.scrollTop = 0;
 
         try {
-            const Ref = firebase.firestore().collection("orders");
-            await Ref.add(payload);
+            const Ref = firebase.firestore().collection("orders").doc(OrderID).set(payload);
+            emailjs.send(
+                process.env.REACT_APP_ORDER_SERVICE_ID,
+                process.env.REACT_APP_ORDER_CLIENT_TEMPLATE_ID,
+                {
+                    id: OrderID,
+                    name: formData.name,
+                    email: formData.email,
+                }
+            );
+            emailjs.send(
+                process.env.REACT_APP_ORDER_SERVICE_ID,
+                process.env.REACT_APP_ORDER_ADMIN_TEMPLATE_ID,
+                {
+                    id: OrderID,
+                    name: formData.name,
+                    email: formData.email,
+                    region: formData.region,
+                    number: formData.number,
+                }
+            );
             setFeedback(true);
             AddToCart([]);
             setFormData({
@@ -40,7 +65,9 @@ function Summary({ props: { prev, confirm, modalRef } }) {
                 shipping_fee: "",
                 delivery_method: "",
             });
+            setConfirm(false);
         } catch (err) {
+            console.log(err);
             setFeedback(false);
         }
     }
@@ -50,7 +77,7 @@ function Summary({ props: { prev, confirm, modalRef } }) {
             {feedback === null ? (
                 <Details props={{ totalPrice, prev, confirm, Order, formData }} />
             ) : feedback === true ? (
-                <SuccessFeedBack props={{ OrderID }} />
+                <SuccessFeedBack props={{ OrderIDState }} />
             ) : (
                 <FailedFeedBack props={{ prev, setFeedback }} />
             )}
@@ -73,16 +100,16 @@ function Details({ props: { totalPrice, prev, confirm, Order, formData } }) {
                         <hr />
                         <div className="d-flex justify-content-between data">
                             <span>Subtotal</span>
-                            <span>${totalPrice}</span>
+                            <span>&#8358;{totalPrice}</span>
                         </div>
                         <div className="d-flex justify-content-between data">
                             <span>Shipping fee</span>
-                            <span>${formData.shipping_fee}</span>
+                            <span>&#8358;{formData.shipping_fee}</span>
                         </div>
                         <hr />
                         <div className="d-flex justify-content-between data">
                             <span>Total</span>
-                            <span>${totalPrice + formData.shipping_fee}</span>
+                            <span>&#8358;{totalPrice + formData.shipping_fee}</span>
                         </div>
                     </div>
                     <div className="Order_address shadow p-2">
@@ -152,14 +179,14 @@ function Details({ props: { totalPrice, prev, confirm, Order, formData } }) {
     );
 }
 
-function SuccessFeedBack({ props: { OrderID } }) {
+function SuccessFeedBack({ props: { OrderIDState } }) {
     return (
         <div className="text-center m-auto">
             <MdCheckCircle size="5rem" className="mb-4" />
             <h3>Sucess!</h3>
             <p>We have recieved your Order!</p>
             <p>
-                Your Order ID = <span id="Orderid">{OrderID}</span>
+                Your Order ID = <span id="Orderid">{OrderIDState}</span>
             </p>
             <button
                 onClick={(e) => {
@@ -180,7 +207,7 @@ function FailedFeedBack({ props: { prev, setFeedback } }) {
     const { setConfirm } = useContext(formDataContext);
     return (
         <div className="text-center m-auto">
-            <MdCheckCircle size="5rem" className="mb-4" />
+            <MdCancel size="5rem" className="mb-4" />
             <h3>Failed!</h3>
             <p>An Error Occured</p>
             <p>Your Order could not be finished, please try again later</p>

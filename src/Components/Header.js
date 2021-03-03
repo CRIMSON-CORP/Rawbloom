@@ -69,7 +69,7 @@ function Header({ props: { LinkObj } }) {
                             <div className="cartDropFooter">
                                 <div className="total">
                                     <p>Total</p>
-                                    <p>{totalPrice}</p>
+                                    <p>&#8358;{totalPrice}</p>
                                 </div>
                                 <div
                                     className="order add-to-cart"
@@ -135,7 +135,7 @@ function EachItemInCart({
                         EditItemInCart({ IdInCart }, "del");
                     }}
                 />
-                <p>${ItemPrice}</p>
+                <p>&#8358;{ItemPrice}</p>
             </div>
         </div>
     );

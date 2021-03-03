@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Header from "./Header";
 import {} from "react-icons";
 import { MdArrowForward } from "react-icons/md";
@@ -22,20 +22,19 @@ function Login({ setLoggedIn }) {
     });
     function verify(e) {
         e.preventDefault();
-        // if (
-        //     loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
-        //     loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
-        // ) {
-        //     setLoginDetails({ username: "", password: "" });
-        //     Notification(
-        //         "danger",
-        //         "Invalid Login Datails",
-        //         "Either your username or pasword is not correct, Try again!"
-        //     );
-        // } else {
-        //     setLoggedIn(true);
-        // }
-        setLoggedIn(true);
+        if (
+            loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
+            loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
+        ) {
+            setLoginDetails({ username: "", password: "" });
+            Notification(
+                "danger",
+                "Invalid Login Datails",
+                "Either your username or pasword is not correct, Try again!"
+            );
+        } else {
+            setLoggedIn(true);
+        }
     }
     return (
         <div className="form_wrapper">
@@ -142,6 +141,7 @@ function ProductUpload() {
     });
     const [image, setImage] = useState(null);
     const [status, setStatus] = useState(null);
+    const imageRef = useRef();
     function fillData({ target: { value, name } }) {
         setData((prev) => {
             return { ...prev, [name]: value };
@@ -172,6 +172,7 @@ function ProductUpload() {
         const StorageRef = firebase.storage().ref();
         const uploadTask = StorageRef.child(`Product images/${Data.productName}`).put(image);
         setStatus("Uploading Image...");
+        Data.id = v4();
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -190,15 +191,17 @@ function ProductUpload() {
                     Data.productQuantity = parseInt(Data.productQuantity);
                     try {
                         const db = firebase.firestore();
-                        const Ref = await db.collection("store").add(Data);
+                        const Ref = await db.collection("store").doc(Data.id).set(Data);
                         setStatus("Upload Finished!");
                         setData({
+                            id: "",
                             productName: "",
                             productDescription: "",
                             productPrice: "",
                             productQuantity: "",
                             productCategory: "",
                         });
+                        imageRef.current.value = null;
                         setTimeout(() => {
                             setStatus(null);
                         }, 500);
@@ -279,6 +282,7 @@ function ProductUpload() {
                             type="file"
                             className="image"
                             id="image"
+                            ref={imageRef}
                             onChange={(e) => setImage(e.target.files[0])}
                             required={true}
                         />
@@ -297,7 +301,6 @@ function EditStore() {
     const productsJSX = products.map((product, index) => {
         return <ItemCard key={index} props={product} />;
     });
-    console.log(products);
     return (
         <div className="editProduct">
             <h4>Edit Store</h4>
@@ -323,6 +326,9 @@ function ItemCard({
 }) {
     const [modal, setModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
+    useEffect(() => {
+        return setModal(false);
+    }, []);
     return (
         <div className={`item shadow ${productCategory}`}>
             <img src={imgURL} className="menu-img" alt="" />
@@ -374,30 +380,20 @@ function ItemCard({
 
 function DeleteModal({ props: { setModal, id } }) {
     async function deletproduct(id) {
-        const db = firebase.firestore().collection("store").where("id", "==", `${id}`);
-        const collection = await db.get();
         try {
-            collection.forEach(async (data) => {
-                data.ref
-                    .delete()
-                    .then(() => {
-                        Notification(
-                            "success",
-                            "Product Deleted!",
-                            "The product has been removed from your Store!"
-                        );
-                        setModal(false);
-                    })
-                    .catch((err) => {
-                        Notification(
-                            "danger",
-                            "An Error Occured",
-                            "Product could not removed from your Store!"
-                        );
-                    });
-            });
-        } catch (err) {
-            console.log(err.message);
+            firebase.firestore().collection("store").doc(id).delete();
+            Notification(
+                "success",
+                "Product Deleted!",
+                "The product has been removed from your Store!"
+            );
+            setModal(false);
+        } catch (error) {
+            Notification(
+                "danger",
+                "An Error Occured",
+                "Product could not removed from your Store!"
+            );
         }
     }
     return (
@@ -494,7 +490,7 @@ function EditModal({
                         Data.productQuantity = parseInt(Data.productQuantity);
                         try {
                             const db = firebase.firestore();
-                            const Ref = await db.collection("store").where("id", "==", `${id}`);
+                            const Ref = await db.collection("store").doc(id).set(Data);
                             setStatus("Upload Finished!");
                             setData({
                                 productName: "",
@@ -523,10 +519,7 @@ function EditModal({
             Data.productQuantity = parseInt(Data.productQuantity);
             try {
                 const db = firebase.firestore();
-                const Ref = await db.collection("store").where("id", "==", `${id}`).get();
-                Ref.forEach((ref) => {
-                    ref.ref.set(Data);
-                });
+                const Ref = await db.collection("store").doc(id).set(Data);
                 setStatus("Upload Finished!");
                 setData({
                     productName: "",

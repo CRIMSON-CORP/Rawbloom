@@ -137,22 +137,22 @@ function App() {
         }
     }
 
-    useEffect(() => {
-        async function getProducts() {
-            try {
+    function getProducts() {
+        try {
+            const db = firebase.firestore().collection("store");
+            const collection = db.onSnapshot(async (collection) => {
                 var list = [];
-                const db = firebase.firestore().collection("store");
-                const collection = await db.get();
-                await Promise.resolve(
-                    collection.forEach((data) => {
-                        list.push(data.data());
-                    })
-                );
+                collection.forEach((data) => {
+                    list.push(data.data());
+                });
                 setProducts(list);
-            } catch (error) {
-                console.log(error);
-            }
+            });
+        } catch (error) {
+            console.log(error);
         }
+    }
+
+    useEffect(() => {
         getProducts();
     }, []);
 
