@@ -12,10 +12,8 @@ body {
 body::-webkit-scrollbar {
     width: 10px;
     background: rgba(205, 164, 94, 0.2);
-    border-radius: 5px;
 }
 body::-webkit-scrollbar-thumb {
-    border-radius: 5px;
     width: 5px;
     background: rgba(205, 164, 94, 0.5);
 }
@@ -1898,9 +1896,9 @@ textarea {
     width: 100%;
 }
 
-.PlaceOrderModal .swiper-slide {
+/* .PlaceOrderModal .swiper-slide {
     width: calc(100% - 20px) !important;
-}
+} */
 
 .PlaceOrderModal .slide1,
 .PlaceOrderModal .slide2 {
@@ -1918,9 +1916,9 @@ textarea {
     margin-bottom: 8px;
 }
 
-.PlaceOrderModal .swiper-wrapper {
+/* .PlaceOrderModal .swiper-wrapper {
     padding: 10px;
-}
+} */
 .PlaceOrderModal .form-header h4 {
     margin-bottom: 10px;
     font-size: 2em;
@@ -2083,12 +2081,6 @@ textarea {
 }
 .cartDropFooter p {
     margin-bottom: 0px;
-}
-
-.slide2 {
-    margin-right: 0 !important;
-    width: 100%;
-    margin-left: 20px;
 }
 
 .drop-enter-done {
@@ -2584,4 +2576,11 @@ form.admin_login button[type="submit"] {
 }
 .uploadEdit button.cancel {
     background: #333;
+}
+
+.about_cancel {
+    color: var(--red);
+}
+.about_check {
+    color: var(--green);
 }

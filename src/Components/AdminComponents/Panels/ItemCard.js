@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
-import { FiPlus } from "react-icons/fi";
-import EachProductModal from "./EachProductModal";
-function EachProduct({
+import EditModal from "./Modals/EditModal";
+import DeleteModal from "./Modals/DeleteModal";
+function ItemCard({
     props: {
-        productQuantity,
-        id,
+        productCategory,
         productDescription,
         productName,
-        imgURL,
-        productCategory,
         productPrice,
-        AddItemToCart,
+        productQuantity,
+        imgURL,
+        id,
     },
 }) {
     const [modal, setModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+    useEffect(() => {
+        return setModal(false);
+    }, []);
     return (
         <div className={`item shadow ${productCategory}`}>
             <img src={imgURL} className="menu-img" alt="" />
@@ -35,38 +38,33 @@ function EachProduct({
                 </div>
             </div>
             <div className="cta">
-                <button
-                    className={`add-to-cart shadow ${
-                        (productQuantity == "" || productQuantity == 0) && "out-of-stock-btn"
-                    }`}
-                    onClick={() => setModal(true)}
-                    disabled={productQuantity == "" || productQuantity == 0}
-                >
-                    <FiPlus size="2em" color="white" />
+                <button className="editProductbtn" onClick={() => setEditModal(true)}>
+                    edit
                 </button>
-                {productQuantity == "" || productQuantity == 0 ? (
-                    <span className={"out-of-stock"}>Out of Stock</span>
-                ) : (
-                    <span className="price">&#8358;{productPrice}</span>
-                )}
+                <button className="deleteProductbtn" onClick={() => setModal(true)}>
+                    delete
+                </button>
             </div>
-            <CSSTransition in={modal} classNames="show" timeout={400} unmountOnExit>
-                <EachProductModal
+            <CSSTransition in={editModal} classNames="show" timeout={250} unmountOnExit>
+                <EditModal
                     props={{
-                        productQuantity,
-                        id,
+                        productCategory,
                         productDescription,
                         productName,
-                        imgURL,
-                        productCategory,
                         productPrice,
-                        setModal,
-                        AddItemToCart,
+                        productQuantity,
+                        imgURL,
+                        setEditModal,
+                        editModal,
+                        id,
                     }}
                 />
+            </CSSTransition>
+            <CSSTransition in={modal} classNames="show" timeout={250} unmountOnExit>
+                <DeleteModal props={{ modal, setModal, id }} />
             </CSSTransition>
         </div>
     );
 }
 
-export default EachProduct;
+export default ItemCard;

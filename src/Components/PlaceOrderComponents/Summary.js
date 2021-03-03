@@ -55,16 +55,6 @@ function Summary({ props: { prev, confirm, modalRef } }) {
             );
             setFeedback(true);
             AddToCart([]);
-            setFormData({
-                name: "",
-                email: "",
-                number: "",
-                address: "",
-                region: "",
-                receiptUrl: "",
-                shipping_fee: "",
-                delivery_method: "",
-            });
             setConfirm(false);
         } catch (err) {
             console.log(err);
@@ -145,10 +135,10 @@ function Details({ props: { totalPrice, prev, confirm, Order, formData } }) {
                     <div className="reciept-upload p-2">
                         <p>Please to pay for your Order, Please upload a Reciept of Transfer to:</p>
                         <pre>
-                            Account Name: BlaBla <br />
-                            Account Number : <span id="acc">123456789</span>
+                            Account Name: Rawbloom Skincare <br />
+                            Account Number : <span id="acc">0591668734</span>
                             <br />
-                            Bank Name: Last bank
+                            Bank Name: Guarantee Trust bank
                             <br />
                             <button
                                 className="copy"

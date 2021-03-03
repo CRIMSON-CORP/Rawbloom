@@ -1,4 +1,5 @@
 import React from "react";
+import { MdCancel, MdCheckCircle } from "react-icons/md";
 import about from "../img/about.jpg";
 
 function About() {
@@ -17,35 +18,19 @@ function About() {
                     </div>
                     <div className="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                         <h3>
-                            Voluptatem dignissimos provident quasi corporis voluptates sit
-                            assumenda.
+                            Rawbloom skincare is a brand that makes you confident in your skin tone.
                         </h3>
-                        <p className="font-italic">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
                         <ul>
                             <li>
-                                <i className="icofont-check-circled"></i> Ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat.
+                                <MdCancel className="about_cancel" /> Our brand doesn’t support
+                                bleaching.
                             </li>
                             <li>
-                                <i className="icofont-check-circled"></i> Duis aute irure dolor in
-                                reprehenderit in voluptate velit.
-                            </li>
-                            <li>
-                                <i className="icofont-check-circled"></i> Ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                                fugiat nulla pariatur.
+                                <MdCheckCircle className="about_check" /> Our products are made with
+                                safe and natural ingredients.
                             </li>
                         </ul>
-                        <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum
-                        </p>
+                        <p className="font-italic">"Consistency is the key to a flawless skin."</p>
                     </div>
                 </div>
             </div>

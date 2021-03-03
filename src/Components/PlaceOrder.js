@@ -21,7 +21,6 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
     });
     const [proceed, setProceed] = useState(false);
     const [confirm, setConfirm] = useState(false);
-
     const SwiperRef = useRef(null);
     const modalRef = useRef(null);
 
@@ -33,6 +32,16 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
 
     useEffect(() => {
         return () => {
+            setFormData({
+        name: "",
+        email: "",
+        number: "",
+        address: "",
+        region: "",
+        receiptUrl: "",
+        shipping_fee: "",
+        delivery_method: "",
+    })
             setProceed(false);
             setConfirm(false);
         };

@@ -19,7 +19,6 @@ function Shop() {
                         </Link>
                     </div>
                 </div>
-
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
                     <ProductsList />
                 </div>
@@ -29,11 +28,10 @@ function Shop() {
 }
 function ProductsList() {
     const { products, AddItemToCart } = useContext(CartContext);
-    const newest = products.slice(0,4);
+    const newest = products.slice(0, 4);
     const ProductsJSX = newest.map((product, index) => {
         return <EachProduct key={index} props={{ ...product, AddItemToCart }} />;
     });
-
     return ProductsJSX;
 }
 

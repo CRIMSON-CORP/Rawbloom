@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Components/Header";
 import Hero from "./Components/Hero";
-import Testimonial from "./Components/Testimonial";
+// import Testimonial from "./Components/Testimonial";
 import Footer from "./Components/Footer";
 import About from "./Components/About";
 import Shop from "./Components/Shop";
@@ -195,7 +195,7 @@ function App() {
                                 <Shop />
                                 <About />
                                 {/* <WhyUs /> */}
-                                <Testimonial />
+                                {/* <Testimonial /> */}
                                 <Contact />
                                 <Footer />
                             </div>
