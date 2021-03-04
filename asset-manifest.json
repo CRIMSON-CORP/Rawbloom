@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/Rawbloom/static/css/main.75fdbc86.chunk.css",
-    "main.js": "/Rawbloom/static/js/main.8e8278f7.chunk.js",
-    "main.js.map": "/Rawbloom/static/js/main.8e8278f7.chunk.js.map",
-    "runtime-main.js": "/Rawbloom/static/js/runtime-main.62358cf0.js",
-    "runtime-main.js.map": "/Rawbloom/static/js/runtime-main.62358cf0.js.map",
-    "static/css/2.2bba330b.chunk.css": "/Rawbloom/static/css/2.2bba330b.chunk.css",
-    "static/js/2.a263af4e.chunk.js": "/Rawbloom/static/js/2.a263af4e.chunk.js",
-    "static/js/2.a263af4e.chunk.js.map": "/Rawbloom/static/js/2.a263af4e.chunk.js.map",
-    "static/js/3.3f921e3c.chunk.js": "/Rawbloom/static/js/3.3f921e3c.chunk.js",
-    "static/js/3.3f921e3c.chunk.js.map": "/Rawbloom/static/js/3.3f921e3c.chunk.js.map",
+    "main.css": "/Rawbloom/static/css/main.741739a1.chunk.css",
+    "main.js": "/Rawbloom/static/js/main.aa4fb267.chunk.js",
+    "main.js.map": "/Rawbloom/static/js/main.aa4fb267.chunk.js.map",
+    "runtime-main.js": "/Rawbloom/static/js/runtime-main.99a6cd90.js",
+    "runtime-main.js.map": "/Rawbloom/static/js/runtime-main.99a6cd90.js.map",
+    "static/css/2.eab5d11a.chunk.css": "/Rawbloom/static/css/2.eab5d11a.chunk.css",
+    "static/js/2.961b997d.chunk.js": "/Rawbloom/static/js/2.961b997d.chunk.js",
+    "static/js/2.961b997d.chunk.js.map": "/Rawbloom/static/js/2.961b997d.chunk.js.map",
+    "static/js/3.b4037dbf.chunk.js": "/Rawbloom/static/js/3.b4037dbf.chunk.js",
+    "static/js/3.b4037dbf.chunk.js.map": "/Rawbloom/static/js/3.b4037dbf.chunk.js.map",
     "index.html": "/Rawbloom/index.html",
     "service-worker.js": "/Rawbloom/service-worker.js",
     "service-worker.js.map": "/Rawbloom/service-worker.js.map",
-    "static/css/2.2bba330b.chunk.css.map": "/Rawbloom/static/css/2.2bba330b.chunk.css.map",
-    "static/css/main.75fdbc86.chunk.css.map": "/Rawbloom/static/css/main.75fdbc86.chunk.css.map",
-    "static/js/2.a263af4e.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.a263af4e.chunk.js.LICENSE.txt",
+    "static/css/2.eab5d11a.chunk.css.map": "/Rawbloom/static/css/2.eab5d11a.chunk.css.map",
+    "static/css/main.741739a1.chunk.css.map": "/Rawbloom/static/css/main.741739a1.chunk.css.map",
+    "static/js/2.961b997d.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.961b997d.chunk.js.LICENSE.txt",
     "static/media/style.css": "/Rawbloom/static/media/about-bg.dfe20f92.jpg",
     "static/media/about.da1e6911.jpg": "/Rawbloom/static/media/about.da1e6911.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.62358cf0.js",
-    "static/css/2.2bba330b.chunk.css",
-    "static/js/2.a263af4e.chunk.js",
-    "static/css/main.75fdbc86.chunk.css",
-    "static/js/main.8e8278f7.chunk.js"
+    "static/js/runtime-main.99a6cd90.js",
+    "static/css/2.eab5d11a.chunk.css",
+    "static/js/2.961b997d.chunk.js",
+    "static/css/main.741739a1.chunk.css",
+    "static/js/main.aa4fb267.chunk.js"
   ]
 }
