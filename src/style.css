@@ -1896,10 +1896,6 @@ textarea {
     width: 100%;
 }
 
-/* .PlaceOrderModal .swiper-slide {
-    width: calc(100% - 20px) !important;
-} */
-
 .PlaceOrderModal .slide1,
 .PlaceOrderModal .slide2 {
     font-size: 12px;
@@ -2414,6 +2410,12 @@ form.admin_login button[type="submit"] {
     padding-bottom: 100px;
 }
 
+@media (max-width: 576px) {
+    #admin .panel {
+        padding: 20px 0 100px;
+    }
+}
+
 #admin .upload .uploadBtn {
     font-size: 1rem;
 }
@@ -2452,25 +2454,6 @@ form.admin_login button[type="submit"] {
     max-width: 800px;
 }
 
-@media (max-width: 992px) {
-    .panel-wrapper {
-        grid-template-columns: 100%;
-        grid-template-rows: auto auto;
-    }
-    #admin nav.navbar {
-        width: 100%;
-    }
-    #admin nav.navbar ul.navlinks {
-        width: 100%;
-        display: flex;
-    }
-
-    #admin .navlinks a {
-        margin-right: 10px;
-        margin-bottom: 0;
-    }
-}
-
 @media (max-width: 576px) {
     #admin nav.navbar {
         width: 100%;
@@ -2481,6 +2464,59 @@ form.admin_login button[type="submit"] {
         display: inline-block;
         padding: 8px 10px;
         font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .panel-wrapper {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto;
+    }
+    #admin nav.navbar {
+        width: 100%;
+        overflow-x: auto;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #admin nav.navbar::-webkit-scrollbar {
+        background: transparent;
+        height: 5px;
+        position: relative;
+    }
+    #admin nav.navbar::-webkit-scrollbar-thumb {
+        background: #cda45e50;
+        height: 5px;
+        opacity: 0.5;
+    }
+
+    #admin div.nav_wrapper {
+        position: relative;
+    }
+
+    #admin div.nav_wrapper::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, black 0%, transparent 15%, transparent 85%, black 100%);
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+    #admin nav.navbar ul.navlinks {
+        width: 100%;
+        display: flex;
+    }
+
+    #admin .navlinks a {
+        margin-right: 10px;
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+    #admin .navlinks a:last-child {
+        margin-right: 50px;
     }
 }
 
@@ -2495,6 +2531,9 @@ form.admin_login button[type="submit"] {
     color: #333;
 }
 
+#admin nav.navbar {
+    height: 100%;
+}
 #admin .navbar .active {
     background: #1d1b16;
 }
@@ -2583,4 +2622,108 @@ form.admin_login button[type="submit"] {
 }
 .about_check {
     color: var(--green);
+}
+
+.eachOrder .content {
+    background: #494438;
+}
+
+.eachOrder {
+    font-size: 0.6rem;
+}
+
+.receipt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+}
+.receipt .imageModal {
+    position: absolute;
+    max-width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5), 0px 8px 20px rgba(0, 0, 0, 0.3);
+    font-size: 10px;
+}
+
+.receiptModal_close {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.row .one {
+    width: 100px;
+}
+
+.eachOrder .Order_address {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+.eachOrder .breakdown {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.eachOrder .swiper-slide {
+    max-width: 400px;
+}
+
+.eachOrder .cartItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #946b25;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 0.3rem 0.5rem rgba(0, 0, 0, 0.7);
+}
+
+.eachOrder .cartItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.eachOrder .cartItem .content {
+    display: block;
+    background: none;
+}
+
+.cartItems .swiper-button-next,
+.cartItems .swiper-button-prev {
+    color: #d9ba85;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.eachOrder {
+    position: relative;
+}
+
+.eachOrder::before {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    transition: 0.5s ease-out;
+    background: black;
+    pointer-events: none;
+}
+
+.eachOrder.completed::before {
+    opacity: 0.5;
 }

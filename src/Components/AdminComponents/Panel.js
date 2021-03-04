@@ -23,19 +23,22 @@ function Panel() {
                 </div>
                 <div className="container-fluid">
                     <div className="panel-wrapper">
-                        <nav className="nav navbar d-block">
-                            <ul className="navlinks">
-                                <NavLink to="/admin/" exact activeClassName={"active"}>
-                                    Upload Product
-                                </NavLink>
-                                <NavLink to="/admin/editStore" exact activeClassName={"active"}>
-                                    Edit store
-                                </NavLink>
-                                <NavLink to="/admin/orders" activeClassName={"active"}>
-                                    Order Requests
-                                </NavLink>
-                            </ul>
-                        </nav>
+                        <div className="nav_wrapper">
+                            <nav className="nav navbar d-block">
+                                <ul className="navlinks">
+                                    <NavLink to="/admin/" exact activeClassName={"active"}>
+                                        Upload Product
+                                    </NavLink>
+                                    <NavLink to="/admin/editStore" exact activeClassName={"active"}>
+                                        Edit store
+                                    </NavLink>
+                                    <NavLink to="/admin/orders" activeClassName={"active"}>
+                                        Order Requests
+                                    </NavLink>
+                                    <div style={{ width: 50, opacity: 0 }}>""</div>
+                                </ul>
+                            </nav>
+                        </div>
                         <div className="panel">
                             <Route path={["/admin/productUpload", "/admin"]} exact>
                                 <ProductUpload />

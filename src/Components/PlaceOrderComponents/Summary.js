@@ -24,6 +24,7 @@ function Summary({ props: { prev, confirm, modalRef } }) {
         const payload = {
             OrderId: OrderID,
             completed: false,
+            totalPrice,
             payload: {
                 ClientData: formData,
                 ClientCart: cart,
