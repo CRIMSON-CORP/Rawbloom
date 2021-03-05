@@ -9,7 +9,7 @@ import firebase from "../../utils/firebase";
 import emailjs from "emailjs-com";
 function Summary({ props: { prev, confirm, modalRef } }) {
     const { totalPrice, cart, AddToCart } = useContext(CartContext);
-    const { formData, setFormData, setConfirm } = useContext(formDataContext);
+    const { formData, setConfirm } = useContext(formDataContext);
     const [feedback, setFeedback] = useState(null);
     const [OrderIDState, setOrderIDState] = useState("");
 
@@ -54,6 +54,16 @@ function Summary({ props: { prev, confirm, modalRef } }) {
                     number: formData.number,
                 }
             );
+            cart.forEach((cartItem) => {
+                firebase
+                    .firestore()
+                    .collection("store")
+                    .doc(cartItem.id)
+                    .update(
+                        "productQuantity",
+                        firebase.firestore.FieldValue.increment(-cartItem.count)
+                    );
+            });
             setFeedback(true);
             AddToCart([]);
             setConfirm(false);

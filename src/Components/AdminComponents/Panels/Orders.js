@@ -75,7 +75,6 @@ function Orders() {
             console.log(error);
         }
     }
-    console.log(orders);
     const dataJSX = orders.map((data, index) => {
         return <EachOrder data={data} key={index} />;
     });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "../../../../utils/firebase";
 import { Notification } from "../../../../utils/utils";
 function EditModal({
@@ -122,6 +122,12 @@ function EditModal({
             return { ...prev, [name]: value };
         });
     }
+
+    useEffect(() => {
+        return () => {
+            setStatus("");
+        };
+    }, []);
     return (
         <div
             className="ProductModal"
