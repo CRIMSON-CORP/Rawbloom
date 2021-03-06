@@ -20,7 +20,9 @@ function ItemCard({
     }, []);
     return (
         <div className={`item shadow ${productCategory}`}>
-            <img src={imgURL} className="menu-img" alt="" />
+            <div className="productImage">
+                <img src={imgURL} className="menu-img" alt="" />
+            </div>
             <div className="menu-content">
                 <p className="product-name">
                     {productName == null || productName === ""

@@ -17,20 +17,19 @@ function Login({ setLoggedIn }) {
     });
     function verify(e) {
         e.preventDefault();
-        // if (
-        //     loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
-        //     loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
-        // ) {
-        //     setLoginDetails({ username: "", password: "" });
-        //     Notification(
-        //         "danger",
-        //         "Invalid Login Datails",
-        //         "Either your username or pasword is not correct, Try again!"
-        //     );
-        // } else {
-        //     setLoggedIn(true);
-        // }
-        setLoggedIn(true);
+        if (
+            loginDetails.username !== process.env.REACT_APP_ADMIN_USERNAME ||
+            loginDetails.password !== process.env.REACT_APP_ADMIN_PASSWORD
+        ) {
+            setLoginDetails({ username: "", password: "" });
+            Notification(
+                "danger",
+                "Invalid Login Datails",
+                "Either your username or pasword is not correct, Try again!"
+            );
+        } else {
+            setLoggedIn(true);
+        }
     }
     return (
         <div className="form_wrapper">
