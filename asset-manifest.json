@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Rawbloom/static/css/main.92af5892.chunk.css",
-    "main.js": "/Rawbloom/static/js/main.b83a8b84.chunk.js",
-    "main.js.map": "/Rawbloom/static/js/main.b83a8b84.chunk.js.map",
+    "main.css": "/Rawbloom/static/css/main.7935221a.chunk.css",
+    "main.js": "/Rawbloom/static/js/main.c1954797.chunk.js",
+    "main.js.map": "/Rawbloom/static/js/main.c1954797.chunk.js.map",
     "runtime-main.js": "/Rawbloom/static/js/runtime-main.99a6cd90.js",
     "runtime-main.js.map": "/Rawbloom/static/js/runtime-main.99a6cd90.js.map",
     "static/css/2.eab5d11a.chunk.css": "/Rawbloom/static/css/2.eab5d11a.chunk.css",
@@ -14,7 +14,7 @@
     "service-worker.js": "/Rawbloom/service-worker.js",
     "service-worker.js.map": "/Rawbloom/service-worker.js.map",
     "static/css/2.eab5d11a.chunk.css.map": "/Rawbloom/static/css/2.eab5d11a.chunk.css.map",
-    "static/css/main.92af5892.chunk.css.map": "/Rawbloom/static/css/main.92af5892.chunk.css.map",
+    "static/css/main.7935221a.chunk.css.map": "/Rawbloom/static/css/main.7935221a.chunk.css.map",
     "static/js/2.961b997d.chunk.js.LICENSE.txt": "/Rawbloom/static/js/2.961b997d.chunk.js.LICENSE.txt",
     "static/media/style.css": "/Rawbloom/static/media/about-bg.dfe20f92.jpg",
     "static/media/about.da1e6911.jpg": "/Rawbloom/static/media/about.da1e6911.jpg"
@@ -23,7 +23,7 @@
     "static/js/runtime-main.99a6cd90.js",
     "static/css/2.eab5d11a.chunk.css",
     "static/js/2.961b997d.chunk.js",
-    "static/css/main.92af5892.chunk.css",
-    "static/js/main.b83a8b84.chunk.js"
+    "static/css/main.7935221a.chunk.css",
+    "static/js/main.c1954797.chunk.js"
   ]
 }
