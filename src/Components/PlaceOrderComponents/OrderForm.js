@@ -134,6 +134,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
                                 id="name"
                                 placeholder="Your Full name"
                                 autoComplete={"off"}
+                                required={true}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.name ? "show" : ""}`}>
@@ -149,6 +150,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
                                 id="email"
                                 placeholder="Your Email"
                                 autoComplete={"off"}
+                                required={true}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.email ? "show" : ""}`}>
@@ -165,6 +167,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
                                 id="number"
                                 placeholder="Your Phone Number"
                                 autoComplete={"off"}
+                                required={true}
                                 onChange={({ target: { name, value } }) => Reducer(name, value)}
                             />
                             <div className={`validate ${errs.number ? "show" : ""}`}>
@@ -220,6 +223,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
                             name="address"
                             rows="4"
                             placeholder="Your Address"
+                            required={true}
                             onChange={({ target: { name, value } }) => Reducer(name, value)}
                         ></textarea>
                         <div className={`validate ${errs.address ? "show" : ""}`}>

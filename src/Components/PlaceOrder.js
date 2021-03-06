@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { CgClose } from "react-icons/cg";
-import { CSSTransition } from "react-transition-group";
 import Swiper from "react-id-swiper";
 import "swiper/swiper.min.css";
 import { CartContext, formDataContext } from "../utils/Contexts";
@@ -33,15 +32,15 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
     useEffect(() => {
         return () => {
             setFormData({
-        name: "",
-        email: "",
-        number: "",
-        address: "",
-        region: "",
-        receiptUrl: "",
-        shipping_fee: "",
-        delivery_method: "",
-    })
+                name: "",
+                email: "",
+                number: "",
+                address: "",
+                region: "",
+                receiptUrl: "",
+                shipping_fee: "",
+                delivery_method: "",
+            });
             setProceed(false);
             setConfirm(false);
         };
@@ -61,34 +60,31 @@ function PlaceOrder({ props: { PlaceOrderModal } }) {
     }
 
     const Params = {
-        spaceBetween: 0,
         slidesPerView: 1,
     };
 
     return (
-        <CSSTransition in={PlaceOrderModal} classNames="show1" timeout={250} unmountOnExit>
-            <div className="PlaceOrderModal ProductModal">
-                <div className="modalBox container scrollBar" ref={modalRef}>
-                    <div className="row">
-                        <button onClick={() => setPlaceOrderModal(false)} className="closeModal">
-                            <CgClose size="1.5rem" />
-                        </button>
-                        <formDataContext.Provider value={{ formData, setFormData, setConfirm }}>
-                            <form className="text-center">
-                                <Swiper ref={SwiperRef} {...Params} allowTouchMove={false}>
-                                    <div>
-                                        <OrderForm props={{ setProceed, next, proceed }} />
-                                    </div>
-                                    <div>
-                                        <Summary props={{ confirm, prev, modalRef }} />
-                                    </div>
-                                </Swiper>
-                            </form>
-                        </formDataContext.Provider>
-                    </div>
+        <div className="PlaceOrderModal ProductModal">
+            <div className="modalBox container scrollBar" ref={modalRef}>
+                <div className="row">
+                    <button onClick={() => setPlaceOrderModal(false)} className="closeModal">
+                        <CgClose size="1.5rem" />
+                    </button>
+                    <formDataContext.Provider value={{ formData, setFormData, setConfirm }}>
+                        <form className="text-center mt-4">
+                            <Swiper ref={SwiperRef} {...Params} allowTouchMove={false}>
+                                <div>
+                                    <OrderForm props={{ setProceed, next, proceed }} />
+                                </div>
+                                <div>
+                                    <Summary props={{ confirm, prev, modalRef }} />
+                                </div>
+                            </Swiper>
+                        </form>
+                    </formDataContext.Provider>
                 </div>
             </div>
-        </CSSTransition>
+        </div>
     );
 }
 

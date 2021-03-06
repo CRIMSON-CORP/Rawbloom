@@ -16,8 +16,10 @@ function EachProduct({
 }) {
     const [modal, setModal] = useState(false);
     return (
-        <div className={`item shadow ${productCategory}`}>
-            <img src={imgURL} className="menu-img" alt="" />
+        <div className={`item ${productCategory}`}>
+            <div className="productImage">
+                <img src={imgURL} className="menu-img" alt="" />
+            </div>
             <div className="menu-content">
                 <p className="product-name">
                     {productName == null || productName === ""
@@ -26,6 +28,7 @@ function EachProduct({
                         ? productName.substr(0, 18) + "..."
                         : productName}
                 </p>
+                <span className="productCategory my-3 d-block">{productCategory}</span>
                 <div className="menu-ingredients">
                     {productDescription == null || productDescription === ""
                         ? "No Description"
@@ -36,7 +39,7 @@ function EachProduct({
             </div>
             <div className="cta">
                 <button
-                    className={`add-to-cart shadow ${
+                    className={`add-to-cart ${
                         (productQuantity == "" || productQuantity == 0) && "out-of-stock-btn"
                     }`}
                     onClick={() => setModal(true)}

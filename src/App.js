@@ -18,6 +18,8 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import firebase from "./utils/firebase";
 import Admin from "./Components/Admin";
 import { CartContext } from "./utils/Contexts";
+import { CSSTransition } from "react-transition-group";
+
 function App() {
     const [Loading, setLoading] = useState(true);
     const [cart, AddToCart] = useState([]);
@@ -200,7 +202,14 @@ function App() {
                                 <Footer />
                             </div>
                         </Route>
-                        <PlaceOrder props={{ PlaceOrderModal }} />
+                        <CSSTransition
+                            in={PlaceOrderModal}
+                            classNames="show1"
+                            timeout={250}
+                            unmountOnExit
+                        >
+                            <PlaceOrder props={{ PlaceOrderModal }} />
+                        </CSSTransition>
                     </CartContext.Provider>
                 </Router>
             </div>

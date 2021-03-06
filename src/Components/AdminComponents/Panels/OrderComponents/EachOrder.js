@@ -82,7 +82,7 @@ function EachOrder({ data }) {
                     </div>
                     <hr />
                 </div>
-                <div className="Order_address shadow p-2 pb-3">
+                <div className="Order_address p-2 pb-3">
                     <div className="data">
                         <span className="tag">Client Address</span>
                         <p>{address}</p>
