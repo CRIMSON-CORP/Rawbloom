@@ -4,6 +4,7 @@ import { Route, NavLink } from "react-router-dom";
 import ProductUpload from "./Panels/ProductUpload";
 import EditStore from "./Panels/EditStore";
 import Orders from "./Panels/Orders";
+import OutOfStock from "./Panels/OutOfStock";
 function Panel() {
     return (
         <>
@@ -35,6 +36,9 @@ function Panel() {
                                     <NavLink to="/admin/orders" activeClassName={"active"}>
                                         Order Requests
                                     </NavLink>
+                                    <NavLink to="/admin/outofstock" activeClassName={"active"}>
+                                        Out of Stock
+                                    </NavLink>
                                     <div style={{ width: 50, opacity: 0 }}>""</div>
                                 </ul>
                             </nav>
@@ -48,6 +52,9 @@ function Panel() {
                             </Route>
                             <Route path="/admin/orders" exact>
                                 <Orders />
+                            </Route>
+                            <Route path="/admin/outofstock" exact>
+                                <OutOfStock />
                             </Route>
                         </div>
                     </div>

@@ -3,6 +3,8 @@ import { ImLocation } from "react-icons/im";
 import { BsClock } from "react-icons/bs";
 import { BiEnvelope, BiPhone } from "react-icons/bi";
 import { BsExclamationCircle } from "react-icons/bs";
+import { FiInstagram } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 function Contact() {
     const [errs, setErrs] = useState({
@@ -53,32 +55,37 @@ function Contact() {
                 <div className="row">
                     <div className="col-lg-4">
                         <div className="info">
-                            <div className="address">
-                                <i>
-                                    <ImLocation />
-                                </i>
-                                <h4>Location:</h4>
-                                <p>A108 Adam Street, New York, NY 535022</p>
-                            </div>
-
-                            <div className="open-hours">
-                                <i>
-                                    <BsClock />
-                                </i>
-                                <h4>Open Hours:</h4>
-                                <p>
-                                    Monday-Saturday:
-                                    <br />
-                                    11:00 AM - 2300 PM
-                                </p>
-                            </div>
-
                             <div className="email">
                                 <i>
                                     <BiEnvelope />
                                 </i>
                                 <h4>Email:</h4>
-                                <p>info@example.com</p>
+                                <p>
+                                    <a href="mailto:Rawbloomskincare02@gmail.com" target="_blank">
+                                        Rawbloomskincare02@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                            <div className="email">
+                                <i>
+                                    <FiInstagram />
+                                </i>
+                                <h4>Instagram:</h4>
+                                <p>@rawbloom_skincare</p>
+                            </div>
+                            <div className="email">
+                                <i>
+                                    <FaWhatsapp />
+                                </i>
+                                <h4>Whatsapp:</h4>
+                                <p>
+                                    <a
+                                        href="https://api.whatsapp.com/send?phone=08086421686&text="
+                                        target="_blank"
+                                    >
+                                        08086421686
+                                    </a>
+                                </p>
                             </div>
 
                             <div className="phone">
@@ -86,7 +93,11 @@ function Contact() {
                                     <BiPhone />
                                 </i>
                                 <h4>Call:</h4>
-                                <p>+1 5589 55488 55s</p>
+                                <p>
+                                    <a href="tel:08086421686" target="_blank">
+                                        08086421686
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>

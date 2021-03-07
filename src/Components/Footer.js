@@ -1,18 +1,7 @@
-import React, { useState } from "react";
-import { FaTwitter, FaFacebookF, FaInstagram, FaSkype, FaLinkedin } from "react-icons/fa";
+import React from "react";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 function Footer() {
-    const [email, setEmail] = useState("");
-    function setData({ target: { value } }) {
-        return setEmail(value);
-    }
-
-    function sendData(e) {
-        e.preventDefault();
-        //
-        // Store email in Database
-        //
-    }
     return (
         <footer id="footer">
             <div className="footer-top">
@@ -22,30 +11,26 @@ function Footer() {
                             <div className="footer-info">
                                 <h3>Rawbloom</h3>
                                 <p>
-                                    A108 Adam Street <br />
-                                    NY 535022, USA
+                                    <strong>Phone:</strong>
+                                    <a href="tel:08086421686" target="_blank">
+                                        08086421686
+                                    </a>
                                     <br />
-                                    <br />
-                                    <strong>Phone:</strong> +1 5589 55488 55
-                                    <br />
-                                    <strong>Email:</strong> info@example.com
+                                    <strong>Email:</strong>
+                                    <a href="mailto:Rawbloomskincare02@gmail.com" target="_blank">
+                                        Rawbloomskincare02@gmail.com
+                                    </a>
                                     <br />
                                 </p>
                                 <div className="social-links mt-3">
-                                    <a href="#" className="twitter">
-                                        <FaTwitter />
-                                    </a>
-                                    <a href="#" className="facebook">
-                                        <FaFacebookF />
-                                    </a>
                                     <a href="#" className="instagram">
                                         <FaInstagram />
                                     </a>
-                                    <a href="#" className="google-plus skype">
-                                        <FaSkype />
-                                    </a>
-                                    <a href="#" className="linkedin">
-                                        <FaLinkedin />
+                                    <a
+                                        href="https://api.whatsapp.com/send?phone=08086421686&text="
+                                        className="instagram"
+                                    >
+                                        <FaWhatsapp />
                                     </a>
                                 </div>
                             </div>
