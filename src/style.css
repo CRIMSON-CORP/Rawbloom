@@ -1928,7 +1928,7 @@ form.admin_login button[type="submit"] {
 }
 
 .menu button.out-of-stock-btn {
-    background: grey;
+    background: #d5d5d5;
     color: #333;
 }
 
