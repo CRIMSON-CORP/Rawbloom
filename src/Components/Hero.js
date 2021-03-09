@@ -13,7 +13,7 @@ function Hero() {
                         <h1>
                             Welcome to <span>Rawbloom</span>
                         </h1>
-                        <h2>Delivering Cosmetic products</h2>
+                        <h2>Beauty has no skin tone...</h2>
 
                         <div
                             className="btns"

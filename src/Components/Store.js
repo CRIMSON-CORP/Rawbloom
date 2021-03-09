@@ -15,7 +15,7 @@ function Store() {
                 </div>
                 <div className="row menu-container" data-aos="fade-up" data-aos-delay="200">
                     {products.length == 0 ? (
-                        <h1 className="text-center">No Products for Now</h1>
+                        <h1 className="text-center text-black-50">No Products for Now</h1>
                     ) : (
                         <ProductsList />
                     )}

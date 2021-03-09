@@ -93,9 +93,9 @@ h6 {
     width: 44px;
     height: 44px;
     border-radius: 50px;
-    color: var(--mainDark);
+    color: var(--main);
     transition: all 0.4s;
-    border: 2px solid var(--mainDark);
+    border: 2px solid var(--main);
     cursor: pointer;
 }
 
@@ -181,13 +181,14 @@ h6 {
     color: white;
     transition: 0.3s;
     font-size: 14px;
+    font-weight: 500;
     font-family: "Open Sans", sans-serif;
 }
 
 .nav-menu a:hover,
 .nav-menu .active > a,
 .nav-menu li:hover > a {
-    color: var(--main);
+    color: var(--mainDark);
 }
 
 .nav-menu .book-a-table a {
@@ -365,7 +366,7 @@ section {
 # About
 --------------------------------------------------------------*/
 .about {
-    background: url("./img/about-bg.jpg") center center;
+    background: url("./img/IMG-20210306-WA0045.jpg") center center;
     background-size: cover;
     position: relative;
     padding: 80px 0;

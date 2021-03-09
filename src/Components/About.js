@@ -1,6 +1,6 @@
 import React from "react";
 import { MdCancel, MdCheckCircle } from "react-icons/md";
-import about from "../img/about.jpg";
+import about from "../img/IMG-20210306-WA0045.jpg";
 
 function About() {
     return (
@@ -8,7 +8,7 @@ function About() {
             <div className="container" data-aos="fade-up">
                 <div className="row">
                     <div
-                        className="col-lg-6 order-1 order-lg-2"
+                        className="col-md-6 order-1 order-md-2"
                         data-aos="zoom-in"
                         data-aos-delay="100"
                     >
@@ -16,7 +16,7 @@ function About() {
                             <img src={about} alt="" />
                         </div>
                     </div>
-                    <div className="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+                    <div className="col-md-6 pt-4 pt-lg-0 order-2 order-md-1 content">
                         <h3>
                             Rawbloom skincare is a brand that makes you confident in your skin tone.
                         </h3>
