@@ -6,9 +6,14 @@ import { UploadImage } from "../../utils/firebaseUtils";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 // Register the plugins
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+registerPlugin(
+    FilePondPluginImageExifOrientation,
+    FilePondPluginImagePreview,
+    FilePondPluginFileValidateType
+);
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
 function RecieptUpload() {
@@ -33,6 +38,10 @@ function RecieptUpload() {
             setUploadUpdate("Eror Upoaloading your Reciept! please try again.");
         }
     }
+
+    useEffect(() => {
+        console.log(image);
+    }, [image]);
     return (
         <div className="imageupload">
             <div className="">
@@ -40,7 +49,7 @@ function RecieptUpload() {
                     maxFiles={1}
                     name="Receipt"
                     acceptedFileTypes={["image/*"]}
-                    labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                    labelIdle='Drag & Drop your Receipt here or  Click to <span class="filepond--label-action">Browse</span>'
                     onupdatefiles={(fileItems) => {
                         // Set current file objects to this.state
                         setImage(fileItems[0]);
