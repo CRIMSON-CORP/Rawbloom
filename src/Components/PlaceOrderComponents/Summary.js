@@ -29,6 +29,7 @@ function Summary({ props: { prev, confirm, modalRef } }) {
                 ClientData: formData,
                 ClientCart: cart,
             },
+            order_createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         };
         modalRef.current.scrollTop = 0;
 

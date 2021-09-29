@@ -1879,6 +1879,10 @@ form.admin_login button[type="submit"] {
     max-width: 800px;
 }
 
+.delete_order {
+    background: rgb(211, 0, 0) !important;
+}
+
 @media (max-width: 576px) {
     #admin nav.navbar {
         width: 100%;
@@ -2155,6 +2159,10 @@ form.admin_login button[type="submit"] {
     transition: 0.5s ease-out;
     background: black;
     pointer-events: none;
+}
+
+.row.cartItems_wrapper {
+    width: clamp(240px, 70vh, 600px);
 }
 
 .eachOrder.completed::before {

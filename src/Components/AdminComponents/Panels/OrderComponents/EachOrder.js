@@ -9,7 +9,7 @@ import CartItem from "./CartItem";
 import firebase from "../../../../utils/firebase";
 function EachOrder({ data }) {
     const [recieptModal, setRecieptModal] = useState(false);
-    var { OrderId, completed, payload, totalPrice } = data;
+    var { OrderId, completed, payload, totalPrice, order_createdAt } = data;
     var { ClientData, ClientCart } = payload;
     var {
         name,
@@ -20,6 +20,7 @@ function EachOrder({ data }) {
         delivery_method,
         shipping_fee,
         receiptUrl,
+        order_createdAt,
     } = ClientData;
 
     const Params = {
@@ -43,6 +44,10 @@ function EachOrder({ data }) {
     function markComplete(id) {
         firebase.firestore().collection("orders").doc(id).update({ completed: !completed });
     }
+    function deleteOrder(id) {
+        const ans = confirm("Are you sure you want to delete this order? make sure its complete!");
+        ans && completed && firebase.firestore().collection("orders").doc(id).delete();
+    }
 
     return (
         <div className={`mb-5 eachOrder ${completed ? "completed" : ""}`}>
@@ -51,6 +56,19 @@ function EachOrder({ data }) {
                     <div className="d-flex justify-content-between align-items-center data">
                         <span>Order Id</span>
                         <span className="text-right">{OrderId}</span>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center data">
+                        <span>Order at </span>
+                        <span className="text-right">
+                            {data.order_createdAt && (
+                                <>
+                                    <span>{data.order_createdAt.toDate().toDateString()}</span>
+                                    <span>
+                                        {data.order_createdAt.toDate().toLocaleTimeString()}
+                                    </span>
+                                </>
+                            )}
+                        </span>
                     </div>
                     <hr />
                     <div className="d-flex justify-content-between data">
@@ -111,17 +129,27 @@ function EachOrder({ data }) {
                     </div>
                     <hr />
 
-                    <div className="row">
+                    <div className="row cartItems_wrapper">
                         <h6 className="ml-3">Client Cart Items</h6>
                         <div className="col-md-12 cartItems">
-                            <Swiper slidesPerView={"auto"} spaceBetween={15} navigation>
+                            <Swiper slidesPerView={"auto"} spaceBetween={15} navigation={true}>
                                 {cartItems}
                             </Swiper>
                         </div>
                     </div>
-                    <div className="row px-3">
+                    <div className="row px-3 mt-3">
+                        <span>Mark as Completed</span>
                         <button className="copy ml-auto" onClick={() => markComplete(OrderId)}>
                             Mark as Completed
+                        </button>
+                    </div>
+                    <div className="row px-3 ">
+                        <span>Delete Order</span>
+                        <button
+                            className="delete_order copy ml-auto"
+                            onClick={() => deleteOrder(OrderId)}
+                        >
+                            Delete Order
                         </button>
                     </div>
                 </div>

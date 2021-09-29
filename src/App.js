@@ -143,7 +143,7 @@ function App() {
     function getProducts() {
         try {
             const db = firebase.firestore().collection("store");
-            const collection = db.onSnapshot(async (collection) => {
+            var collection = db.onSnapshot(async (collection) => {
                 var list = [];
                 collection.forEach((data) => {
                     list.push(data.data());
@@ -151,13 +151,15 @@ function App() {
                 setConstProduct(list);
                 setProducts(list);
             });
+            return collection;
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        getProducts();
+        var unsub = getProducts();
+        return unsub;
     }, []);
 
     return Loading ? (
