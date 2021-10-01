@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {} from "react-icons";
-import { MdArrowForward } from "react-icons/md";
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { useHistory } from "react-router";
 import { Notification } from "../utils/utils";
 import Panel from "./AdminComponents/Panel";
 function Admin() {
@@ -15,6 +16,7 @@ function Login({ setLoggedIn }) {
         username: "",
         password: "",
     });
+    const history = useHistory();
     function verify(e) {
         e.preventDefault();
         if (
@@ -68,9 +70,20 @@ function Login({ setLoggedIn }) {
                         }
                     />
                 </div>
-                <button type="submit">
-                    <MdArrowForward size="1.5rem" />
-                </button>
+                <div className="cta">
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            history.goBack();
+                        }}
+                    >
+                        <MdArrowBack size="1.5rem" />
+                    </button>
+                    <button type="submit">
+                        Submit <MdArrowForward size="1.5rem" />
+                    </button>
+                </div>
             </form>
         </div>
     );

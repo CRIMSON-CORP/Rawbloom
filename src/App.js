@@ -14,7 +14,7 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import { Notification, HeaderLinks } from "./utils/utils";
 import { v4 } from "uuid";
 import PlaceOrder from "./Components/PlaceOrder";
-import { HashRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import firebase from "./utils/firebase";
 import Admin from "./Components/Admin";
 import { CartContext } from "./utils/Contexts";
@@ -159,7 +159,9 @@ function App() {
 
     useEffect(() => {
         var unsub = getProducts();
-        return unsub;
+        return () => {
+            unsub();
+        };
     }, []);
 
     return Loading ? (
@@ -167,7 +169,7 @@ function App() {
     ) : (
         <div className="App">
             <div>
-                <Router>
+                <Router basename={process.env.PUBLIC_URL}>
                     <CartContext.Provider
                         value={{
                             cart,

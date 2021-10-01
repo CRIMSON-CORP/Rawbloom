@@ -15,7 +15,7 @@ function Summary({ props: { prev, confirm, modalRef } }) {
 
     useEffect(() => {
         emailjs.init(process.env.REACT_APP_ORDER_USER_ID);
-    });
+    }, []);
 
     async function Order(e) {
         e.preventDefault();

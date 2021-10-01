@@ -11,6 +11,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
         email: false,
         number: false,
         address: false,
+        region: false,
     });
     const [Drop, setDrop] = useState(false);
     const { formData, setFormData } = useContext(formDataContext);
@@ -22,7 +23,8 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
             formData.email !== "" &&
             formData.number !== "" &&
             formData.address !== "" &&
-            formData.state !== ""
+            formData.state !== "" &&
+            formData.region !== ""
         ) {
             if (!errs.name && !errs.number && !errs.email && !errs.address) {
                 setProceed(true);
@@ -37,6 +39,7 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
         formData.email,
         formData.number,
         formData.address,
+        formData.region,
     ]);
 
     var list = States.map((state, index) => {
@@ -82,7 +85,8 @@ function OrderForm({ props: { setData, setProceed, next, proceed } }) {
                 break;
             case "email":
                 setData(name, value);
-                var mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                var mailformat =
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (!value.match(mailformat) && value.length > 0) {
                     setErrs((prev) => {
                         return { ...prev, [name]: true };

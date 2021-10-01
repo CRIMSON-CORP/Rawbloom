@@ -39,9 +39,6 @@ function RecieptUpload() {
         }
     }
 
-    useEffect(() => {
-        console.log(image);
-    }, [image]);
     return (
         <div className="imageupload">
             <div className="">

@@ -946,7 +946,8 @@ body .menu-ingredients {
     top: 0;
     left: 0;
     z-index: 999;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
     display: grid;
     place-items: center;
 }
@@ -971,7 +972,7 @@ body .menu-ingredients {
 .modalBox {
     position: relative;
     max-width: 800px;
-    box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 1);
+    box-shadow: 0px 19px 40px rgb(0 0 0 / 30%);
     background: #f5f5f5;
     color: #333;
     height: 90vh;
@@ -1789,13 +1790,23 @@ form.admin_login .form-group .form-control {
     box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
 
-form.admin_login button[type="submit"] {
-    width: 45px;
+form.admin_login button[type="submit"],
+form.admin_login button[type="button"] {
     height: 45px;
-    border-radius: 50%;
     background: var(--main);
     color: white;
     float: right;
+}
+form.admin_login button[type="submit"] {
+    padding: 0px 15px;
+    border-radius: 0px;
+}
+
+form.admin_login button[type="button"] {
+    width: 45px;
+
+    border-radius: 50%;
+    float: left;
 }
 #admin {
     padding-bottom: 0;
@@ -2085,8 +2096,16 @@ form.admin_login button[type="submit"] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5), 0px 8px 20px rgba(0, 0, 0, 0.3);
     font-size: 10px;
+    height: clamp(200px, 100%, 95vh);
+}
+
+.receipt .imageModal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5), 0px 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .receiptModal_close {
@@ -2203,7 +2222,8 @@ section#contact .section-title {
     display: none;
 }
 
-#shop .form-control {
+#shop .form-control,
+.editProduct .form-control {
     border: none;
     outline: none;
     background: #1a18143a;
@@ -2212,7 +2232,8 @@ section#contact .section-title {
     min-width: 300px;
 }
 
-#shop #category {
+#shop #category,
+.editProduct #category {
     background: #1a18143a;
     border-radius: 40px;
     color: white;

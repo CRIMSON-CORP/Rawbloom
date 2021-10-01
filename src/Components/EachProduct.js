@@ -40,14 +40,14 @@ function EachProduct({
             <div className="cta">
                 <button
                     className={`add-to-cart ${
-                        (productQuantity == "" || productQuantity == 0) && "out-of-stock-btn"
+                        (productQuantity == "" || productQuantity <= 0) && "out-of-stock-btn"
                     }`}
                     onClick={() => setModal(true)}
-                    disabled={productQuantity == "" || productQuantity == 0}
+                    disabled={productQuantity == "" || productQuantity <= 0}
                 >
                     <FiPlus size="2em" color="white" />
                 </button>
-                {productQuantity == "" || productQuantity == 0 ? (
+                {productQuantity == "" || productQuantity <= 0 ? (
                     <span className={"out-of-stock"}>Out of Stock</span>
                 ) : (
                     <span className="price">&#8358;{productPrice}</span>

@@ -46,6 +46,7 @@ function ProductUpload() {
         Data.imgURL = ImageURL;
         Data.productPrice = parseInt(Data.productPrice);
         Data.productQuantity = parseInt(Data.productQuantity);
+        Data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
         const db = firebase.firestore();
         const Ref = await db.collection("store").doc(Data.id).set(Data);
         setStatus("Upload Finished!");

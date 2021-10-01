@@ -5,7 +5,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { MdClose, MdDehaze, MdDelete } from "react-icons/md";
 import { CSSTransition } from "react-transition-group";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../utils/Contexts";
 import { scroll } from "../utils/utils";
 
@@ -47,21 +47,40 @@ function Header({ props: { LinkObj } }) {
                             setMobileNav(false);
                         }}
                     />
-                    <ul>{FinalLink}</ul>
+                    <ul>
+                        {FinalLink}
+
+                        {window.location.pathname.search("admin") === -1 && (
+                            <>
+                                <li>
+                                    <NavLink
+                                        to="/admin"
+                                        onClick={(e) => {
+                                            setMobileNav(false);
+                                        }}
+                                    >
+                                        Admin
+                                    </NavLink>
+                                </li>
+                                <li
+                                    className="cart"
+                                    onClick={(e) => {
+                                        setDropCart(!dropCart);
+                                    }}
+                                >
+                                    <span className={`notif ${cart.length > 0 ? "active" : ""}`}>
+                                        {cart.length}
+                                    </span>
+                                    {dropCart ? (
+                                        <CgClose size="1.5rem" />
+                                    ) : (
+                                        <BiCart size="1.5rem" />
+                                    )}
+                                </li>
+                            </>
+                        )}
+                    </ul>
                 </nav>
-                {window.location.hash.search("admin") === -1 && (
-                    <li
-                        className="cart"
-                        onClick={(e) => {
-                            setDropCart(!dropCart);
-                        }}
-                    >
-                        <span className={`notif ${cart.length > 0 ? "active" : ""}`}>
-                            {cart.length}
-                        </span>
-                        {dropCart ? <CgClose size="1.5rem" /> : <BiCart size="1.5rem" />}
-                    </li>
-                )}
                 <CSSTransition in={dropCart} timeout={400} classNames="dropCart" unmountOnExit>
                     <div className="cartDropDown">
                         <Cart cart={cart} edit={EditItemInCart} />

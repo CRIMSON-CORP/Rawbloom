@@ -5,9 +5,13 @@ import firebase from "../../../utils/firebase";
 import { Notification } from "../../../utils/utils";
 function OutOfStock() {
     const [addModal, setAddModal] = useState(false);
+    const [idToEdit, setIdToEdit] = useState(null);
     const { products } = useContext(CartContext);
-    const OutOfStockProducts = products.filter((product) => product.productQuantity <= 0);
-    var OutOfStockProductsJSX = OutOfStockProducts.map(
+    const [OutofStockState, setOutOfStockState] = useState([]);
+    useEffect(() => {
+        setOutOfStockState(products.filter((product) => product.productQuantity <= 0));
+    }, [products]);
+    var OutOfStockProductsJSX = OutofStockState.map(
         ({ productCategory, productName, imgURL, id }, index) => {
             return (
                 <div className={`item shadow ${productCategory}`} key={index}>
@@ -25,13 +29,13 @@ function OutOfStock() {
                     </div>
                     <div className="cta outOfStock">
                         <div className="p-4 outofstockalert">OUT OF STOCK!</div>
-                        <button className="editProductbtn" onClick={() => setAddModal(true)}>
+                        <button
+                            className="editProductbtn"
+                            onClick={() => (setAddModal(true), setIdToEdit(id))}
+                        >
                             ADD MORE
                         </button>
                     </div>
-                    <CSSTransition in={addModal} classNames="show" timeout={250} unmountOnExit>
-                        <Add props={{ id, setAddModal }} />
-                    </CSSTransition>
                 </div>
             );
         }
@@ -43,7 +47,12 @@ function OutOfStock() {
                 {OutOfStockProductsJSX.length == 0 ? (
                     <h2 className="text-center mt-4">No Products Out of Stock!</h2>
                 ) : (
-                    OutOfStockProductsJSX
+                    <>
+                        {OutOfStockProductsJSX}
+                        <CSSTransition in={addModal} classNames="show" timeout={250} unmountOnExit>
+                            <Add props={{ idToEdit, setAddModal }} />
+                        </CSSTransition>
+                    </>
                 )}
             </div>
         </div>
@@ -52,9 +61,9 @@ function OutOfStock() {
 
 export default OutOfStock;
 
-function Add({ props: { id, setAddModal } }) {
+function Add({ props: { idToEdit, setAddModal } }) {
     const [input, setInput] = useState(null);
-    function ReStock(id) {
+    function ReStock(idToEdit) {
         if (!input)
             return Notification(
                 "danger",
@@ -65,7 +74,7 @@ function Add({ props: { id, setAddModal } }) {
             firebase
                 .firestore()
                 .collection("store")
-                .doc(id)
+                .doc(idToEdit)
                 .update({ productQuantity: parseInt(input) });
             Notification(
                 "success",
@@ -108,7 +117,7 @@ function Add({ props: { id, setAddModal } }) {
                         <button className="cancel" onClick={() => setAddModal(false)}>
                             Cancel
                         </button>
-                        <button className="restockBtn" onClick={() => ReStock(id)}>
+                        <button className="restockBtn" onClick={() => ReStock(idToEdit)}>
                             Add
                         </button>
                     </div>

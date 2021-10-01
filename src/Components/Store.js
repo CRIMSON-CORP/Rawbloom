@@ -13,7 +13,10 @@ function Store() {
                         <p>Checkout all our Products</p>
                     </div>
                     <div className="container">
-                        <div className="row justify-content-between flex-wrap" style={{ gap: 20 }}>
+                        <div
+                            className="row justify-content-between align-items-center flex-wrap"
+                            style={{ gap: 20 }}
+                        >
                             <SearchComponent />
                             <Category />
                         </div>
